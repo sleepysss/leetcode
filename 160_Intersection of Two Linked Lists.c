@@ -23,7 +23,7 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
     store1=headA;
     store2=headB;
     
-    //類似偷跑的概念,比別人多幾個,就偷跑幾個
+    //因為長度不同,所以用類似偷跑的概念,比別人多幾個,就偷跑幾個
     if(lengthA>lengthB)
         for(int i=lengthA-lengthB;i>0;--i)
             store1=store1->next;
