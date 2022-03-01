@@ -61,12 +61,12 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
     
     if(!list1)
-        return list2;
+        return list2;  //merge([],[2,3])=[2,3]
     if(!list2)
         return list1;
     if(list1->val<list2->val)
     {
-        list1->next=mergeTwoLists(list1->next,list2); //mergeTwoLists return a merge linked list
+        list1->next=mergeTwoLists(list1->next,list2); //merge([1 3 5 7],[2 4])=1+merge([3 5 7],[2 4]))
         return list1;
     }
     else
