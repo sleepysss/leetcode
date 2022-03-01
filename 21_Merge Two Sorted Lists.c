@@ -6,7 +6,7 @@
  * };
  */
 
-//iterative
+//iterative ver1
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
     
     struct ListNode *head=NULL, *ptr1, *ptr2, *store,* store2; //store:the node to be add;store2:traverse ne linked list
@@ -54,6 +54,40 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
     
     return head;    
 }
+
+
+
+//iterative ver2
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
+    
+    // dummy_head -> a -> b -> dummy_tail  dummy(協助者)用來簡化"不方便",ex:a當頭還會要額外設一些東西
+    struct ListNode dummy_head;
+    dummy_head.val=0;
+    dummy_head.next=NULL;
+    
+    struct ListNode *store1=list1, *store2=list2; //store1:traverse list1,store2:traverse list 2
+    
+    struct ListNode *current=&dummy_head;  //where am i now
+    while(store1&&store2)
+    {
+        if(store1->val<store2->val)
+        {
+            current->next=store1;
+            current=current->next;
+            store1=store1->next;  
+        }
+        else
+        {
+            current->next=store2;
+            current=current->next;
+            store2=store2->next;
+        }
+    }
+    
+    current->next=store1?store1:store2;
+    return dummy_head.next;
+}
+
 
 
 
