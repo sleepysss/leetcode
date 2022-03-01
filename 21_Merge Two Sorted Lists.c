@@ -21,37 +21,19 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
     ptr1=list1;
     ptr2=list2;
     
-    while(ptr1||ptr2)
+    while(ptr1&&ptr2)
     {
-        val1=ptr1?ptr1->val:-101;  //-101 means NULL
-        val2=ptr2?ptr2->val:-101;
         
         //choose smaller val and add to linked list
-        if(val1<=val2&&val1!=-101) //val smaller and qualified
+        if(ptr1->val<=ptr2->val) //val smaller
         {
             store=ptr1;
             ptr1=ptr1->next;
         }
-        else if(val2<val1&&val2!=-101)  
+        else if(ptr2->val<ptr1->val)  
         {
             store=ptr2;
             ptr2=ptr2->next;
-        }
-        else if(val1!=-101) //val2 not qualified,which means there is nothing on ptr2
-        {
-            if(!head)
-                return ptr1;
-            
-            store2->next=ptr1;
-            return head;
-        }
-        else if(val2!=-101)
-        {
-            if(!head)
-                return ptr2;
-         
-            store2->next=ptr2;
-            return head;
         }
         
         if(!head)
@@ -63,7 +45,12 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
         store2->next=store;  
         store2=store2->next;
     }
-        
+    
+    //condition:(1) list1 traverse to null (2) list2 traverse to null (3) list1 and list2 traverse to null
+    if(!head)
+        return ptr1?ptr1:ptr2;
+    
+    store2->next=ptr1?ptr1:ptr2;
+    
     return head;    
-
 }
