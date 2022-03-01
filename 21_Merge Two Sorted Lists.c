@@ -66,7 +66,7 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
         return list1;
     if(list1->val<list2->val)
     {
-        list1->next=mergeTwoLists(list1->next,list2);
+        list1->next=mergeTwoLists(list1->next,list2); //mergeTwoLists return a merge linked list
         return list1;
     }
     else
