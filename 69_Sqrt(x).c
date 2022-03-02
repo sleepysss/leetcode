@@ -29,7 +29,7 @@ int mySqrt(int x){
 //       l=m+1
 //   }
 //   return l or not found(if f() exist)
-//   l will be smallest num that g() can exist  (given a function g(mid),returns the smallest mid in the range such that g(mid) holds true)
+//   l will be smallest num that g() can exist after execute binary search  (given a function g(mid),returns the smallest mid in the range such that g(mid) holds true)
 // }
 
 //binary search
