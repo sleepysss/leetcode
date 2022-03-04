@@ -56,7 +56,7 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize){
 //method2 ver1
 int find_first(int *nums,int numsSize,int target)
 {
-    int left=0,right=numsSize-1,mid,firstpos=numsSize;   //用個變數firstpos來記可能的答案
+    int left=0,right=numsSize-1,mid,firstpos=numsSize;   //用個變數firstpos來記可能的答案  firstpos用非numsSize會出錯,ex:使用-1 [1] target:1,在store[1]那邊會得到-1,但應該是0才對(因為target會+1)
     
     while(left<=right)
     {
