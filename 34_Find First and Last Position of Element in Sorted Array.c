@@ -128,7 +128,7 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize){
     *returnSize=2;
     
     store[0]=find_first(nums,numsSize,target);
-    if(store[0]==numsSize||nums[store[0]]!=target)  //firstpos exist and same as target
+    if(store[0]==numsSize||nums[store[0]]!=target)  //check firstpos exist and same as target
     {
         store[0]=-1;
         store[1]=-1;
