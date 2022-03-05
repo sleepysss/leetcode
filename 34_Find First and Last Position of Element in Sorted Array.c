@@ -139,4 +139,62 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize){
     
 }
 
+//method3
+
+//for solving binary search problems is to set the start and the end on the elements, not outside of the array.
+//The key point in solving binary search problems (and many other loop-based solutions) is a set of good invariants.
+//int start = 0; 
+//int end = a.length - 1; 
+//Now the invariant. The array right now we have is [start, end]. We don't know anything yet about the elements. 
+//All of them might be greater than the target, or all might be smaller, or some smaller and some larger. 
+//So we can't make any assumptions so far about the elements. 
+//Our goal is to find the first element greater than the target. So we choose the invariants like this:
+
+//Any element to the right of the end is greater than the target.
+//Any element to the left of the start is smaller than or equal to the target.
+
+//We can easily see that our invariant is correct at the start (ie before going into any loop). 
+//All the elements to the left of the start (no elements basically) are smaller than or equal to the target, same reasoning for the end.
+
+
+int* searchRange(int* nums, int numsSize, int target, int* returnSize){
+    
+    int *store=(int *)malloc(sizeof(int)*2);
+    int left=0,right=numsSize-1,mid;
+    store[0]=-1;
+    store[1]=-1;
+    *returnSize=2;
+    
+    if(!numsSize)
+        return store;
+    
+    while(left<=right)
+    {
+        mid=left+(right-left)/2; 
+        if(nums[mid]>=target)
+            right=mid-1;
+        else
+            left=mid+1;
+    }
+    if(left==numsSize||nums[left]!=target)  //最小的target不在範圍內or取到的只有>,沒有=
+        return store;
+    else
+        store[0]=left;
+    
+    left=0;
+    right=numsSize-1;
+    while(left<=right)
+    {
+        mid=left+(right-left)/2; 
+        if(nums[mid]>target)
+            right=mid-1;
+        else
+            left=mid+1;
+    }
+    store[1]=left-1;
+    
+    return store;
+    
+}
+
 
