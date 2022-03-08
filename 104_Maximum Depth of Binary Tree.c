@@ -7,6 +7,7 @@
  * };
  */
 
+//equal height of binary tree
 
 int maxDepth(struct TreeNode* root){
     if(!root)
