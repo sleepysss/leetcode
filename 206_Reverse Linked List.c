@@ -7,6 +7,8 @@
  */
 
 //iterative
+
+//method1
 struct ListNode* reverseList(struct ListNode* head){
     struct ListNode *store1=head,* store2, *store3;       //ex:if store1=node1 then store2 will be node 2 and store3 will be node 3
     
@@ -23,6 +25,20 @@ struct ListNode* reverseList(struct ListNode* head){
     head->next=NULL; //last one point to null
     return store1; 
 }
+
+//method2
+struct ListNode* reverseList(struct ListNode* head){
+    struct ListNode *pre=NULL,* cur=head,* next,* store=head; //pre:上一個反向完的node cur:當前需要反向的node
+    while(cur)
+    {
+        next=cur->next;
+        cur->next=pre;
+        pre=cur;
+        cur=next;
+    }
+    return pre;  
+}
+
 
 //recursive
 //核心想法:把後面的當作已經做完ㄌ,只要改自己在的這個就好(讓整個由->變成<-)  ex:  2 -> |已經完成的部分|   改成  NULL <- 2 <- |已經完成的部分|
