@@ -1,3 +1,4 @@
+//method1
 int removeElement(int* nums, int numsSize, int val){
     
     int last=numsSize-1,tmp; //last:不是val的最後一個數的位址
