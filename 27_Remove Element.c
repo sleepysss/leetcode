@@ -19,3 +19,23 @@ int removeElement(int* nums, int numsSize, int val){
     return last+1;
 
 }
+
+
+//method2  類似qsort的partition
+int removeElement(int* nums, int numsSize, int val){
+    
+    int x=-1,tmp;
+    
+    for(int i=0;i<numsSize;++i)
+    {
+        if(nums[i]!=val)
+        {
+            x++;
+            tmp=nums[x];
+            nums[x]=nums[i];
+            nums[i]=tmp;
+        }
+    }
+    return x+1;
+}
+
