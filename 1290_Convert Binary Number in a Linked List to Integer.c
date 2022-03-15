@@ -6,6 +6,11 @@
  * };
  */
 
+//https://www.cuemath.com/numbers/binary-to-decimal/
+
+
+//Positional Notation Method
+
 int Pow(int num,int a)
 {
     int store=1;
@@ -35,3 +40,34 @@ int getDecimalValue(struct ListNode* head){
     return count;
     
 }
+
+
+//Doubling Method
+
+int getDecimalValue(struct ListNode* head){
+    
+    int total=0;
+    struct ListNode *store=head;
+    
+    while(store)
+    {
+        total=total*2+store->val;  //Double the previous number and add the current digit.
+        store=store->next;
+    }
+    return total;
+}
+
+//using bit Manipulation
+int getDecimalValue(struct ListNode* head){
+    
+    int total=0;
+    struct ListNode *store=head;
+    
+    while(store)
+    {
+        total=(total<<1)|(store->val);  //Double the previous number and add the current digit.
+        store=store->next;
+    }
+    return total;
+}
+
