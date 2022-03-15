@@ -28,7 +28,7 @@ struct ListNode* reverseList(struct ListNode* head){
 
 //method2
 struct ListNode* reverseList(struct ListNode* head){
-    struct ListNode *pre=NULL,* cur=head,* next,* store=head; //pre:上一個反向完的node cur:當前需要反向的node
+    struct ListNode *pre=NULL,* cur=head,* next; //pre:上一個反向完的node cur:當前需要反向的node
     while(cur)
     {
         next=cur->next;
