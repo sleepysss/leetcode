@@ -1,8 +1,9 @@
 int reverse(int x){
 
     //mod(%)可取尾數 搭配除法即可反轉        -5%10=-5
+    //主要問題為overflow
     
-    long long total=0,mod;  
+    int total=0,mod;  
    
     while(x!=0)
     {
