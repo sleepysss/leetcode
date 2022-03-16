@@ -1,10 +1,12 @@
 
+//每一格的雨水量是由min(左邊最高的牆(包含他),右邊最高的牆(包含他))-他的高度來決定的
+
 //brute force (time limmit exceeded)
 int trap(int* height, int heightSize){
 
     int left,right,total=0,x;
 
-    for(int i=1;i<heightSize-1;++i)
+    for(int i=1;i<heightSize-1;++i)  //對於每一格,都分別去找左右最高的牆
     {
         left=0;
         right=0;
@@ -25,7 +27,7 @@ int trap(int* height, int heightSize){
     return total;
 }
 
-//改良:先算過全部的左最大和右最大(靠left,right記目前最大,在和當前的比),然後和brute force最後一步一樣
+//改良:先算過每一格的左最大和右最大(靠left,right記目前最大,在和當前的比),然後和brute force最後一步一樣
 
 int trap(int* height, int heightSize){
 
@@ -60,7 +62,7 @@ int trap(int* height, int heightSize){
 }
 
 
-//改良:dp 把left,right拿掉,用前一個比,即: left_max[i] = max(height[i], left_max[i - 1])     right_max[i] = max(height[i], right_max[i + 1])
+//改良:dp 和前一個方法類似,只差在把left,right拿掉,用前一個比,即: left_max[i] = max(height[i], left_max[i - 1])     right_max[i] = max(height[i], right_max[i + 1])
 
 int trap(int* height, int heightSize){
 
