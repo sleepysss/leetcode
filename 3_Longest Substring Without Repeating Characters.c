@@ -18,3 +18,32 @@ int lengthOfLongestSubstring(char * s){
     }
     return ans;
 }
+
+
+
+
+//brute force:對每一個s中的char都去嘗試(以他當開頭(的字串)),直到碰到一樣的,並且去比較長度
+
+int lengthOfLongestSubstring(char * s){
+    int store[128]={0},i=0,j,ans=0,count;  //ascii 
+    
+    while(s[i])
+    {
+        j=i;
+        count=0;
+        for(int i=0;i<128;++i)
+            store[i]=0;
+        while(s[j])
+        {
+            store[s[j]]++;
+            if(store[s[j]]>1) //same
+                break;
+            count++;
+            j++;
+        }
+        if(count>ans) //跟現在最大的比
+            ans=count;
+        i++;
+    }
+    return ans;
+}
