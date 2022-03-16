@@ -1,18 +1,19 @@
 //想法:只要當前判斷的字元不存在於建立的陣列中，即將該字元加入此陣列；如果這個字元已經存在陣列中，則一直刪除陣列開頭的值，直到當前判斷的字元不存在於陣列中為止。
+//即:維護一個滑動窗口(start~i)裡面不能有重複的元素
 
 int lengthOfLongestSubstring(char * s){
-    int store[128]={0},i=0,ans=0;  //store:ascii table 
+    int store[128]={0},i=0,ans=0;  //store:ascii table的值出現次數
     int start=0;
     
     while(s[i])
     {
         store[s[i]]++;
-        while(store[s[i]]>1)  //have more than once
+        while(store[s[i]]>1)  //have more than once  有重複,縮小window
         {
             store[s[start]]--;
             start++;  
         }
-        if((i-start+1)>ans)
+        if((i-start+1)>ans) //sliding window的長度和當前最大的長度比較
             ans=i-start+1;
         i++; 
     }
