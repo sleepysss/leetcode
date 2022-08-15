@@ -28,15 +28,21 @@ struct ListNode* reverseList(struct ListNode* head){
 
 //method2
 struct ListNode* reverseList(struct ListNode* head){
-    struct ListNode *pre=NULL,* cur=head,* next; //pre:上一個反向完的node cur:當前需要反向的node
-    while(cur)
+    
+    struct ListNode *current=head, *back=NULL, *front=NULL;
+    
+    // if 1 is current then 2 is front , NULL is back
+    //        1 ->  2 -> NULL
+    // NULL<- 1 <- 2
+    
+    while(current)
     {
-        next=cur->next;
-        cur->next=pre;
-        pre=cur;
-        cur=next;
+        front=current->next;  //get next node
+        current->next=back;   //change current's -> to <-
+        back=current;         //move on to 'next round' 
+        current=front;
     }
-    return pre;  
+    return back;
 }
 
 
