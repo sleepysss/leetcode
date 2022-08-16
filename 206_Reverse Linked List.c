@@ -8,7 +8,7 @@
 
 //iterative
 
-//method1
+//method1  (not good)
 struct ListNode* reverseList(struct ListNode* head){
     struct ListNode *store1=head,* store2, *store3;       //ex:if store1=node1 then store2 will be node 2 and store3 will be node 3
     
@@ -34,6 +34,7 @@ struct ListNode* reverseList(struct ListNode* head){
     // if 1 is current then 2 is front , NULL is back
     //        1 ->  2 -> NULL
     // NULL<- 1 <- 2
+    //雨刷的概念,本來->變<-,每個node當作雨刷的中心
     
     while(current)
     {
@@ -47,15 +48,31 @@ struct ListNode* reverseList(struct ListNode* head){
 
 
 //recursive
-//核心想法:把後面的當作已經做完ㄌ,只要改自己在的這個就好(讓整個由->變成<-)  ex:  2 -> |已經完成的部分|   改成  NULL <- 2 <- |已經完成的部分|
 struct ListNode* reverseList(struct ListNode* head){
-    struct ListNode* store;
-    if(!head||!head->next)
+       
+    //original linked list can be combine by sub linked list 1 and 2-> 3->4 
+    //      black box
+    // 1 -> 2 -> 3 -> 4
+    // if black box (sub linked list) finished reverse, it will get  NULL <- 2 <- 3 <- 4
+    // so what we need to do now (for a single node ie:1) is 
+    // 1. 1 -> next -> next == 1 itself (1->next is 2 and our target is reverse)
+    // 2. 1 -> next == NULL 
+    //then (sub) linked list 1->blackbox finish reverse  ie: NULL <- 1 <- 2 <- 3 <- 4  (black box + single node finished reverse)
+    
+    //|base|
+    
+    if(head==NULL)
+        return NULL;
+    if(head->next==NULL)  //single node does not need to do anything
         return head;
     
-    store=reverseList(head->next); //已經完成的部分的頭
-    head->next->next=head;  // 2 <- |已經完成的部分|
-    head->next=NULL;  // NULL <- 2
-    return store; //因為reverseList傳的是已經被反過來的list的head
+    //|general|
+    
+    struct ListNode *store=reverseList(head->next);  //sub linked list do reverse and return the reversed list's head 
+    //single node do reverse
+    head->next->next=head;  
+    head->next=NULL;
+    
+    return store;  //store is finished reverse's linked list 's head  ie:5
 }
 
