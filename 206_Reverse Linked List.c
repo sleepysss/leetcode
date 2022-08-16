@@ -55,8 +55,9 @@ struct ListNode* reverseList(struct ListNode* head){
     // 1 -> 2 -> 3 -> 4
     // if black box (sub linked list) finished reverse, it will get  NULL <- 2 <- 3 <- 4
     // so what we need to do now (for a single node ie:1) is 
-    // 1. 1 -> next -> next == 1 itself (1->next is 2 and our target is reverse)
-    // 2. 1 -> next == NULL 
+    // 1. call reverseList to reverse all the node after it
+    // 2. 1 -> next -> next == 1 itself (1->next is 2 and our target is reverse)
+    // 3. 1 -> next == NULL 
     //then (sub) linked list 1->blackbox finish reverse  ie: NULL <- 1 <- 2 <- 3 <- 4  (black box + single node finished reverse)
     
     //|base|
