@@ -68,7 +68,7 @@ struct ListNode* reverseList(struct ListNode* head){
     
     //|general|
     
-    struct ListNode *store=reverseList(head->next);  //sub linked list do reverse and return the reversed list's head 
+    struct ListNode *store=reverseList(head->next);  //reverse everything after current node
     //single node do reverse
     head->next->next=head;  
     head->next=NULL;
