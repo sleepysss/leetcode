@@ -9,11 +9,10 @@
 
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
     
-    //l1 be return list
-    
-    struct ListNode *head=NULL, *ptr, *store;
+    struct ListNode *head=NULL, *ptr, *store;   //store:pre-node's address
     int num1,num2,count=0;
     
+    //be careful of nothing in l1,nothing in l2,but still something in count(carry)
     while(l1||l2||count)
     {
         ptr=(struct ListNode *)malloc(sizeof(struct ListNode));
@@ -31,8 +30,6 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
             l1=l1->next;
         if(l2)
             l2=l2->next;
-        
     }
-    
     return head;
 }
