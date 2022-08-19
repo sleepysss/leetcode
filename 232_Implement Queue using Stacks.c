@@ -32,6 +32,7 @@ void move_st1_to_st2(MyQueue *obj)
 
 
 int myQueuePop(MyQueue* obj) {
+    //Move only when st2 have nothing, otherwise the value will be covered(because of stack's push)
     if(obj->st2_top==-1)
         move_st1_to_st2(obj);
     return obj->st2[obj->st2_top--];
