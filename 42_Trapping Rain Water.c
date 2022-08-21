@@ -1,101 +1,68 @@
 
-//每一格的雨水量是由min(左邊最高的牆(包含他),右邊最高的牆(包含他))-他的高度來決定的
+//每一格的雨水量是由min(左邊最高的牆,右邊最高的牆)-那格的高度來決定的,且這個值要>0
 
 //brute force (time limmit exceeded)
+//雨水的高度是由兩側較低的磚塊高度來決定。故我們先用i遍歷height(用height[i]表示)，在每個height[i]我們分別往左邊找在height[0:i-1]範圍內的最大值maxLeft，
+//也往右邊找在height[i+1:n-1]範圍內的最大值maxRight(其中n為height的size)，然後我們在取得maxLeft與maxRight的叫小值(curLevel)，就是可以儲存雨水的最高level了，
+//所以我們只要重複這個動作，若height[i] < curLevel，我們只要累加curLevel-height就可以計算出答案了
+
 int trap(int* height, int heightSize){
-
-    int left,right,total=0,x;
-
-    for(int i=1;i<heightSize-1;++i)  //對於每一格,都分別去找左右最高的牆
+    
+    int left_biggest,right_biggest,sum=0,water;
+    
+    for(int i=0;i<heightSize;++i)
     {
-        left=0;
-        right=0;
-        for(int j=0;j<=i;++j)
+        left_biggest=0;
+        right_biggest=0;
+        
+        for(int j=0;j<i;++j)
         {
-            if(height[j]>left)
-                left=height[j];
+            if(height[j]>left_biggest)
+                left_biggest=height[j];
         }
-        for(int k=i;k<heightSize;++k)
+        for(int j=i+1;j<heightSize;++j)
         {
-            if(height[k]>right)
-                right=height[k];
+            if(height[j]>right_biggest)
+                right_biggest=height[j];
         }
-        x=(left>right)?right-height[i]:left-height[i];
-        total+=x;
+        
+        water=right_biggest>left_biggest?left_biggest:right_biggest;
+        sum=water>height[i]?sum+water-height[i]:sum;
     }
     
-    return total;
+    return sum;
 }
 
-//改良:先算過每一格的左最大和右最大(靠left,right記目前最大,在和當前的比),然後和brute force最後一步一樣
-
+//改良版
+//因為我們用brute force時內層for在計算maxLeft與maxRight時會一直掃過重複的地區
+//而經過神機妙算後可得知l_biggest[i]=max(l_biggest[i-1],height[i-1])
+//就可用這特性來先把各個格子的l_biggest和r_biggest算出來,最後再直接判定就行
 int trap(int* height, int heightSize){
-
-    int left=height[0],right=height[heightSize-1],total=0,x;
     
-    int *store1=(int *)malloc(sizeof(int)*heightSize);
-    int *store2=(int *)malloc(sizeof(int)*heightSize);
+    int *l_biggest=(int *)malloc(sizeof(int)*heightSize);
+    int *r_biggest=(int *)malloc(sizeof(int)*heightSize);
+    int left_biggest=height[0],right_biggest=height[heightSize-1],water,sum=0;
     
-    for(int i=0;i<heightSize;++i) //left max height of i
-    {
-        if(height[i]>left)
-            left=height[i];
-        store1[i]=left;   
-    }
-    for(int i=heightSize-1;i>=0;--i) //right max height
-    {
-        if(height[i]>right)
-            right=height[i];
-        store2[i]=right;   
-    }
+    l_biggest[0]=0;
+    r_biggest[heightSize-1]=0;
     
-    for(int i=1;i<heightSize-1;++i)
+    //把brute force中的第2個for提出來
+    //idea:l_biggest[i]=max(l_biggest[i-1],height[i-1])
+    //某一點左邊最高的牆為前一點來看最高的牆和前一點的高度取max
+    for(int i=1;i<heightSize;++i)
+        l_biggest[i]=l_biggest[i-1]>height[i-1]?l_biggest[i-1]:height[i-1];
+    for(int i=heightSize-2;i>=0;--i)
+        r_biggest[i]=r_biggest[i+1]>height[i+1]?r_biggest[i+1]:height[i+1];
+    
+    for(int i=0;i<heightSize;++i)
     {
-        x=(store1[i]>store2[i])?store2[i]-height[i]:store1[i]-height[i];
-        total+=x;
+        water=l_biggest[i]>r_biggest[i]?r_biggest[i]:l_biggest[i];
+        sum=(water>height[i])?sum+water-height[i]:sum;
     }
     
-    free(store1);
-    free(store2);
+    free(l_biggest);
+    free(r_biggest);
     
-    return total;
+    return sum;
 }
 
-
-//改良:dp 和前一個方法類似,只差在把left,right拿掉,用前一個比,即: left_max[i] = max(height[i], left_max[i - 1])     right_max[i] = max(height[i], right_max[i + 1])
-
-int trap(int* height, int heightSize){
-
-    int total=0,x;
-    
-    int *store1=(int *)malloc(sizeof(int)*heightSize);
-    int *store2=(int *)malloc(sizeof(int)*heightSize);
-    
-    store1[0]=height[0];
-    for(int i=1;i<heightSize;++i) //left max height of i
-    {
-        if(height[i]>store1[i-1])
-            store1[i]=height[i];  
-        else
-            store1[i]=store1[i-1];
-    }
-    store2[heightSize-1]=height[heightSize-1];
-    for(int i=heightSize-2;i>=0;--i) //right max height
-    {
-        if(height[i]>store2[i+1])
-            store2[i]=height[i]; 
-        else
-            store2[i]=store2[i+1];    
-    }
-    
-    for(int i=1;i<heightSize-1;++i)
-    {
-        x=(store1[i]>store2[i])?store2[i]-height[i]:store1[i]-height[i];
-        total+=x;
-    }
-    
-    free(store1);
-    free(store2);
-    
-    return total;
-}
