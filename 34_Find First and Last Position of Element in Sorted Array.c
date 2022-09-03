@@ -202,27 +202,7 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize){
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
-int bsearch1(int *nums,int numsSize,int target). // >=的第一個
-{
-    int left=0,right=numsSize-1,mid,flag=0;
-    while(left<=right)
-    {
-        mid=left+(right-left)/2;
-        if(nums[mid]<target)
-            left=mid+1;
-        else if(nums[mid]>target)
-            right=mid-1;
-        else
-        {
-            right=mid-1;
-            flag=1; //確認有碰到target,或者回去再比較也行
-        }
-    }
-    return flag?left:-1;
-    
-}
-
-int bsearch2(int *nums,int numsSize,int target) //>=原本target的第一個,不用去管會不會碰到因為bsearch1有用
+int b_search(int *nums,int numsSize,int target) // >=的第一個
 {
     int left=0,right=numsSize-1,mid;
     while(left<=right)
@@ -230,7 +210,7 @@ int bsearch2(int *nums,int numsSize,int target) //>=原本target的第一個,不
         mid=left+(right-left)/2;
         if(nums[mid]<target)
             left=mid+1;
-        else
+        else if(nums[mid]>=target)
             right=mid-1;
     }
     return left;
@@ -238,14 +218,19 @@ int bsearch2(int *nums,int numsSize,int target) //>=原本target的第一個,不
 
 int* searchRange(int* nums, int numsSize, int target, int* returnSize){
     
-    int *ptr=(int *)malloc(sizeof(int)*2);
-    ptr[0]=bsearch1(nums,numsSize,target);  //找>=target的第一個,且比較是否有碰到
-    if(ptr[0]==-1)
-        ptr[1]=-1;
-    else
-        ptr[1]=bsearch2(nums,numsSize,target+1)-1; //找>=target+1的第一個再扣回去
-    
+    int *ptr=(int *)malloc(sizeof(int)*2),store;
     *returnSize=2;
+    ptr[0]=ptr[1]=-1;
+    store=b_search(nums,numsSize,target);  //找>=target的第一個,且比較是否有碰到
+    if(numsSize==0||store>=numsSize||nums[store]!=target) //nothing in array,out of range,not equals
+        return ptr;
+    else
+    {
+        ptr[0]=store;
+        store=b_search(nums,numsSize,target+1)-1; //找>=target+1的第一個再扣回
+        ptr[1]=store;
+    }
+    
     return ptr;
 }
 
