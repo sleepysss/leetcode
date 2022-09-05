@@ -1,3 +1,4 @@
+//method 1
 void ReHeapDown(int nums[], int root, int last)
 {
 	int leftchild, rightchild, biggest_index = root;
@@ -50,3 +51,45 @@ int findKthLargest(int* nums, int numsSize, int k) {
 	return count;
 
 }
+
+//method2
+int partition(int store[], int first, int last)
+{
+    int pivot = store[last], temp;
+    int count = first - 1;
+    for (int i = first; i < last; ++i)
+    {
+        if (store[i] < pivot)
+        {
+            count++;
+            temp = store[count];
+            store[count] = store[i];
+            store[i] = temp;
+        }
+    }
+    count++;
+    temp = store[count];
+    store[count] = store[last];
+    store[last] = temp;
+
+    return count;
+}
+
+int quickselect(int store[], int k, int first, int last) //k:k-th smallest element of list
+{
+    int pivot = partition(store, first, last);
+    if (pivot + 1 == k)
+        return store[pivot];
+    else if (pivot + 1 < k) //If pivot's position is less, recur for right subarray
+        return quickselect(store, k, pivot + 1, last);
+    else
+        return quickselect(store, k, first, pivot - 1);
+}
+
+int findKthLargest(int* nums, int numsSize, int k){
+    
+    k=numsSize-k+1; //轉為第幾小
+    return quickselect(nums,k,0,numsSize-1);
+    
+}
+
