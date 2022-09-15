@@ -60,4 +60,43 @@ int* preorderTraversal(struct TreeNode* root, int* returnSize){
 
 //method2:recursive
 
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+
+int CountNode(struct TreeNode *root)
+{
+    if(!root)
+        return 0;
+    else
+        return 1+CountNode(root->left)+CountNode(root->right);
+}
+
+void preorder(struct TreeNode *root,int store[],int *count_ptr)
+{
+    if(!root)
+        return;
+    else
+    {
+        store[*count_ptr]=root->val;
+        *count_ptr=*count_ptr+1;
+        preorder(root->left,store,count_ptr);
+        preorder(root->right,store,count_ptr);
+    }
+}
+
+int* preorderTraversal(struct TreeNode* root, int* returnSize){
+        
+    int countnode=CountNode(root); //count the amount of node
+    
+   
+    int *store=(int *)malloc(sizeof(int)*countnode);
+    int count=0;
+   
+    preorder(root,store,&count);
+    
+    *returnSize=countnode;
+    return store;
+}
 
