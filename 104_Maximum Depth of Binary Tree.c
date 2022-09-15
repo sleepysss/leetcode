@@ -12,11 +12,10 @@
 int maxDepth(struct TreeNode* root){
     if(!root)
         return 0;
-    int leftdepth=maxDepth(root->left); //calculate left subtree maxdepth
-    int rightdepth=maxDepth(root->right);
-    if(leftdepth>rightdepth) //choose longer
-        return leftdepth+1;
     else
-        return rightdepth+1;
-
+    {
+        int store1=maxDepth(root->left);
+        int store2=maxDepth(root->right);
+        return store1>store2?1+store1:1+store2;
+    }
 }
