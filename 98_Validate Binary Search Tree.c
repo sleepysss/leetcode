@@ -1,3 +1,4 @@
+//method 1: naive inordertraverse
 int countnode(struct TreeNode *root)
 {
     if(!root)
@@ -37,3 +38,41 @@ bool isValidBST(struct TreeNode* root){
     free(store);
     return true;
 }
+
+// method 2 改良版的inorder traverse
+//在In-order的狀況下，
+//對於二元搜尋樹可以得到一個由小到大的順序，所以只要記住上一個節點，每次去比較上一個節點和現在走到的節點，
+//當現在的節點跟上一個節點相比較小或相等時，表示這不是二元搜尋樹(因為越後面的節點必須較大才行)；
+//反之，當每個節點都走完沒有錯誤時，這時候就可以確認這個二元樹是二元搜尋樹了。
+
+
+//當tree為valid時下面函數會返回true,當tree非valid時下面函數會返回false 
+bool inordertraverse(struct TreeNode *root,struct TreeNode **last) //last:isValidBST function中的last的位址
+{
+    if(!root)
+        return true;
+    else
+    {
+        if(!inordertraverse(root->left,last)) //看左子樹合不合格
+            return false;
+        if(!(*last)) //empty
+            *last=root;
+        else
+        {
+            if((*last)->val>=root->val) //前面比後面大
+                return false;
+            *last=root;
+        }
+        if(!inordertraverse(root->right,last))
+            return false;
+    }
+    return true;
+}
+
+bool isValidBST(struct TreeNode* root){
+    
+    struct TreeNode *last=NULL; //存上一個走到的節點的位址
+    return inordertraverse(root,&last);
+    
+}
+
