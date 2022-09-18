@@ -76,3 +76,43 @@ bool isValidBST(struct TreeNode* root){
     
 }
 
+//method 3: using BST def
+
+bool traverse_smaller(struct TreeNode *root,int val) //see if every node in tree is smaller than val
+{
+    if(!root)
+        return true;
+    else
+    {
+        if(root->val>=val)
+            return false;
+        return traverse_smaller(root->left,val)&&traverse_smaller(root->right,val);
+    }
+}
+
+
+bool traverse_bigger(struct TreeNode *root,int val)
+{
+    if(!root)
+        return true;
+    else
+    {
+        if(root->val<=val)
+            return false;
+        return traverse_bigger(root->left,val)&&traverse_bigger(root->right,val);
+    }
+}
+
+bool isValidBST(struct TreeNode* root){
+    
+    if(!root)
+        return true;
+    else
+    {
+        if(!(traverse_smaller(root->left,root->val)&&traverse_bigger(root->right,root->val)))   //BST def
+            return false;
+        else
+            return isValidBST(root->left)&&isValidBST(root->right); //traverse every node
+    }
+}
+
