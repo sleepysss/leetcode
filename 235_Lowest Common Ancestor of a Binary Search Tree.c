@@ -7,6 +7,7 @@
  * };
  */
 
+//method1:
 
 bool findptr(struct TreeNode *root,struct TreeNode *ptr)
 {
@@ -42,4 +43,21 @@ struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p,
             return root; //root is the LCA
     }
     return store;
+}
+
+//method2
+
+struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
+    
+    if(!root)
+        return NULL;
+    else
+    {
+        if(root->val>p->val&&root->val>q->val)
+            return lowestCommonAncestor(root->left,p,q);
+        else if(root->val<p->val&&root->val<q->val)
+            return lowestCommonAncestor(root->right,p,q);
+        else  //ex1,ex2
+            return root;
+    }
 }
