@@ -51,3 +51,27 @@ struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p,
     else
         return lowestCommonAncestor(root->right,p,q);
 }
+
+//method 3
+
+struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
+    
+    if(root==NULL||root==p||root==q)
+        return root;
+    else
+    {
+        //对于 lowestCommonAncestor 这个函数的理解的话，它不一定可以返回最近的共同祖先，
+        //如果子树中只能找到 p 节点或者 q 节点，它最终返回其实就是 p 节点或者 q 节点。
+        
+        struct TreeNode *left_sub_tree_LCA=lowestCommonAncestor(root->left,p,q);
+        struct TreeNode *right_sub_tree_LCA=lowestCommonAncestor(root->right,p,q);
+        
+        if(!left_sub_tree_LCA)
+            return right_sub_tree_LCA;
+        else if(!right_sub_tree_LCA)
+            return left_sub_tree_LCA;
+        else
+            return root;
+    }
+}
+
