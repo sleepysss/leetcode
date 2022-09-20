@@ -36,8 +36,6 @@ bool find(struct TreeNode *root,struct TreeNode *p) //see whether node p is insi
         return find(root->left,p)||find(root->right,p);
 }
 
-struct TreeNode *store;
-
 struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
     
     //通過確定兩個節點的位置,然後再用recursive解決問題
