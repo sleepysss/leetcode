@@ -4,7 +4,6 @@
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
 
-/*
 int partition(int **intervals,int first,int last)
 {
     int pivot=intervals[last][0];
@@ -30,31 +29,6 @@ int partition(int **intervals,int first,int last)
     intervals[last][1]=intervals[i][1];
     intervals[i][0]=temp1;
     intervals[i][1]=temp2;
-    
-    return i;
-}
-*/
-
-int partition(int **intervals,int first,int last)
-{
-    int pivot=intervals[last][0];
-    int i=first-1;
-    int *temp;
-    
-    for(int j=first;j<last;++j)
-    {
-        if(intervals[j][0]<pivot)
-        {
-            i++;
-            temp=intervals[i];
-            intervals[i]=intervals[j];  //直接換指向的address比較快,不用再慢慢搬值
-            intervals[j]=temp;
-        }
-    }
-    i++;
-    temp=intervals[i];
-    intervals[i]=intervals[last];
-    intervals[last]=temp;
     
     return i;
 }
