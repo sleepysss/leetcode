@@ -13,7 +13,7 @@ struct ListNode* partition(struct ListNode* head, int x){
         {
             greater->next=ptr;
             pre->next=ptr->next; //1->3
-            ptr->next=NULL; //4->3 => 4->NULL
+            ptr->next=NULL; //4->3 => 4->NULL (no this step,it will be a cycle)
             ptr=pre;
             greater=greater->next;
             
