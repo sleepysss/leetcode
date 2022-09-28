@@ -9,12 +9,20 @@ struct ListNode* deleteDuplicates(struct ListNode* head){
     
     while(ptr&&ptr->next)
     {
-        if(ptr->next->val==ptr->val)
+        if(ptr->next->val==ptr->val) //has duplicates
         {
             struct ListNode *ptr2=ptr->next;
             while(ptr2&&ptr2->val==ptr->val) //find how long is duplicates
                 ptr2=ptr2->next;
-            pre->next=ptr2;
+            pre->next=ptr2; //link
+            
+            while(ptr!=pre->next)
+            {
+                ptr2=ptr;
+                ptr=ptr->next;
+                free(ptr2);
+            }
+            
             ptr=pre;
         }
         pre=ptr;
