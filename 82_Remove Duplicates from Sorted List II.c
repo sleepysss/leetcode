@@ -4,7 +4,6 @@ struct ListNode* deleteDuplicates(struct ListNode* head){
         return NULL;
     
     struct ListNode dummy, *ptr=head, *pre=&dummy;
-    int num=101;
     dummy.next=head;
     
     while(ptr&&ptr->next)
