@@ -56,6 +56,63 @@ bool isPalindrome(struct ListNode* head){
     return true; //all nums are the same
 }
 
+//method1:改良
+//1.用fast,slow pointer找start 2.翻轉後半部(這樣就不用cut了)
+
+struct ListNode *reverselist(struct ListNode *head)
+{
+    struct ListNode *curr=head, *pre=NULL, *next;
+    
+    while(curr)
+    {
+        next=curr->next;
+        curr->next=pre;
+        pre=curr;
+        curr=next;
+    }
+    return pre;
+}
+
+struct ListNode *getfirst(struct ListNode *head)
+{
+    struct ListNode *fast=head, *slow=head;
+    
+    while(1)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(!fast)
+            return slow;
+        if(!(fast->next))
+            return slow->next;
+    }
+}
+
+bool isPalindrome(struct ListNode* head){
+    
+    if(!(head->next))
+        return true;
+    
+    //get head of the second part list
+    struct ListNode *start=getfirst(head);
+    
+    //reverse second part of the list
+    
+    start=reverselist(start);
+    
+    //traverse&compare
+    while(start)
+    {
+        if(head->val!=start->val)
+            return false;
+        
+        head=head->next;
+        start=start->next;
+    }
+    
+    return true; //all nums are the same
+}
+
 //method2:stack
 
 bool isPalindrome(struct ListNode* head){
