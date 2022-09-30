@@ -1,4 +1,19 @@
 //method1:decomposition
+
+struct ListNode *reverselist(struct ListNode *head)
+{
+    struct ListNode *curr=head, *pre=NULL, *next;
+    
+    while(curr)
+    {
+        next=curr->next;
+        curr->next=pre;
+        pre=curr;
+        curr=next;
+    }
+    return pre;
+}
+
 bool isPalindrome(struct ListNode* head){
     
     int count=0;
