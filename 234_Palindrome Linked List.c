@@ -1,3 +1,4 @@
+//method1:decomposition
 bool isPalindrome(struct ListNode* head){
     
     int count=0;
@@ -39,3 +40,40 @@ bool isPalindrome(struct ListNode* head){
     
     return true; //all nums are the same
 }
+
+//method2:stack
+
+bool isPalindrome(struct ListNode* head){
+    
+    int count=0,store[50000],x=-1;
+    struct ListNode *ptr=head, *start;
+    
+    if(!(head->next))
+        return true;
+    
+    //count num
+    while(ptr)
+    {
+        count++;
+        ptr=ptr->next;
+    }
+    
+    ptr=head;
+    for(int i=0;i<=(count/2)-1;++i)
+    {
+        store[++x]=ptr->val;
+        ptr=ptr->next;
+    }
+    if(count%2)
+        ptr=ptr->next;
+    
+    while(ptr)
+    {
+        if(store[x]!=ptr->val)
+            return false;
+        ptr=ptr->next;
+        x--;
+    }
+    return true; 
+}
+
