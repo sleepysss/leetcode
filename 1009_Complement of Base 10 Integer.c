@@ -17,6 +17,10 @@ int bitwiseComplement(int n){
   
     int num=n,count=0,val=0;
     //算有幾位
+    
+    //也可不用多另一個num,如下所示
+    // while(n>>count)
+    //    count++
     while(num)
     {
         count++;
