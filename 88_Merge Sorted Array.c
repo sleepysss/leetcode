@@ -1,3 +1,4 @@
+//method 1
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
     
     int count1=0,count2=0;
@@ -35,3 +36,25 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
     }
     
 }
+
+
+//method 2
+
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
+    
+    int *store=(int *)malloc(sizeof(int)*m);
+    
+    for(int i=0;i<m;++i)
+        store[i]=nums1[i];
+    
+    int start1=0,start2=0; //小array將要traverse的index
+    int start=0; //大array下一次被賦值的index
+    
+    while(start1<m&&start2<n)
+        nums1[start++]=store[start1]<nums2[start2]?store[start1++]:nums2[start2++];
+    while(start1<m)
+        nums1[start++]=store[start1++];
+    while(start2<n)
+        nums1[start++]=nums2[start2++];
+}
+
