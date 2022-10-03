@@ -56,5 +56,6 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
         nums1[start++]=store[start1++];
     while(start2<n)
         nums1[start++]=nums2[start2++];
+    free(store);
 }
 
