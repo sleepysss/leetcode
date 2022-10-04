@@ -1,3 +1,25 @@
+//method 1
+
+void moveZeroes(int* nums, int numsSize){
+    
+    int j=-1; //last index of target array
+    
+    for(int i=0;i<numsSize;++i)
+    {
+        if(nums[i]==0)
+            continue;
+        else
+            nums[++j]=nums[i];
+    }
+    
+    for(int i=j+1;i<numsSize;++i)
+        nums[i]=0;
+}
+
+
+
+// method 2
+
 void moveZeroes(int* nums, int numsSize){
     
     int temp,last=numsSize; //last:0序列的最前端的index
