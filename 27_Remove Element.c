@@ -22,21 +22,23 @@ int removeElement(int* nums, int numsSize, int val){
 }
 
 
-//method2  類似qsort的partition
+//method2 : two pointer
+
+
 int removeElement(int* nums, int numsSize, int val){
     
-    int x=-1,tmp;
+    int j=-1;
     
     for(int i=0;i<numsSize;++i)
     {
-        if(nums[i]!=val)
+        if(nums[i]==val)
+            continue;
+        else
         {
-            x++;
-            tmp=nums[x];
-            nums[x]=nums[i];
-            nums[i]=tmp;
+            nums[++j]=nums[i];
         }
     }
-    return x+1;
+    
+    return j+1;
 }
 
