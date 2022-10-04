@@ -38,3 +38,25 @@ void moveZeroes(int* nums, int numsSize){
         }
     }
 }
+
+// method 3
+
+void moveZeroes(int* nums, int numsSize){
+    
+    //lomuto
+    
+    int j=-1; //非0的數字所形成的數列的最後位置
+    int temp;
+    
+    for(int i=0;i<numsSize;++i)
+    {
+        if(nums[i]!=0)
+        {
+            j++;
+            temp=nums[j];
+            nums[j]=nums[i];
+            nums[i]=temp;
+            
+        }  
+    }
+}
