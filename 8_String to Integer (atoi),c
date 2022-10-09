@@ -1,0 +1,38 @@
+int myAtoi(char * s){
+    
+    //INT_MAX (2147483647) 
+    //INT_MIN (-2147483648) 
+    
+    bool flag=1;
+    int count=0,max=INT_MAX/10;
+    
+    if(!s)
+        return 0;
+    
+    while((*s)==' '&&(*s)!='\0')  //remove space
+        s++;
+    
+    if((*s)=='-'||(*s)=='+') //negative or positive  default:positive
+    {
+        flag=(*s)=='-'?0:1;
+        s++;
+    }
+        
+    while((*s)>='0'&&(*s)<='9')
+    {   
+        //see if > MAX or < MIN
+        
+        if(count>max||((count==max)&&(*s)>'7'))  
+            return flag?INT_MAX:INT_MIN;
+        
+        count=count*10+((*s)-'0');  
+        //( (*s)-'0' )一定要有括號,不然可能overflow,因為count*10會先加*s再扣'0',且*s最小48 
+        //若這時count為214748364,且*s為48就會爆掉,因為214748364*10+48>INT_MAX,它不會管你最後扣完有沒在範圍,因為已經超過ㄌ
+        s++;
+    }
+    
+    if(!flag)
+        count=-count;
+    
+    return count;
+}
