@@ -28,3 +28,22 @@ int minSubArrayLen(int target, int* nums, int numsSize){
     
     return min_count==numsSize+1?0:min_count;
 }
+
+// method 2 : sliding window
+int minSubArrayLen(int target, int* nums, int numsSize){
+    
+    int l=0,r=0,sum=0,min_len=numsSize+1;
+    
+    for(int r=0;r<numsSize;++r)
+    {
+        sum+=nums[r];
+        
+        while(sum>=target)
+        {
+            min_len=min_len>(r-l+1)?r-l+1:min_len;
+            sum-=nums[l];
+            l++;
+        }
+    }
+    return min_len==numsSize+1?0:min_len;
+}
