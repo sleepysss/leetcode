@@ -19,6 +19,7 @@ int maxSubArray(int* nums, int numsSize){
 
 
 //method 2 : 隊友強不強(?)理論
+
 int maxSubArray(int* nums, int numsSize){
     
     int curr=0,max=-10001; //curr:curr's maxSubArray'
@@ -33,6 +34,24 @@ int maxSubArray(int* nums, int numsSize){
     {
         curr=curr>0?curr+nums[i]:nums[i];
         max=max>curr?max:curr;
+    }
+    return max;
+}
+
+//method 3 : DP (based on method 2)
+
+int maxSubArray(int* nums, int numsSize){
+    
+    //store[i]: maxSubArray(from 0 to i)
+    int *store=(int *)malloc(sizeof(int)*numsSize),max;
+    
+    store[0]=nums[0];
+    max=store[0];
+    
+    for(int i=1;i<numsSize;++i)
+    {
+        store[i]=store[i-1]>0?store[i-1]+nums[i]:nums[i];
+        max=max>store[i]?max:store[i];
     }
     return max;
 }
