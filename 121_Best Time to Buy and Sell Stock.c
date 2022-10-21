@@ -16,6 +16,7 @@ int maxProfit(int* prices, int pricesSize){
 //method 2 : DP
 int maxProfit(int* prices, int pricesSize){
     
+    //核心想法:單一元素最大獲利 = 目前價錢 - 前面出現的最低價格
     //store[i] 0到i的最低價格
     int *store=(int *)malloc(sizeof(int)*pricesSize);
     
