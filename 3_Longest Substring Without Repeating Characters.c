@@ -20,6 +20,29 @@ int lengthOfLongestSubstring(char * s){
     return ans;
 }
 
+int lengthOfLongestSubstring(char * s){
+    
+    int ascii[128]={0},count=0,max_count=0,left=0,right=0;
+    char *ptr=s;
+    
+    while(*ptr)
+    {
+        ascii[*ptr]++;
+        count++;
+        right++;
+        
+        while(ascii[*ptr]>1)
+        { 
+            count--;
+            ascii[s[left]]--;
+            left++;
+        }
+        max_count=max_count>count?max_count:count;
+        ptr++;
+    }
+    return max_count;
+}
+
 
 
 
