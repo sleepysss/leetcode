@@ -48,3 +48,29 @@ int lengthOfLongestSubstring(char * s){
     }
     return ans;
 }
+
+int lengthOfLongestSubstring(char * s){
+    
+    int ascii[128]={0},count=0,max_count=0;
+    char *ptr1=s, *ptr2;
+    
+    while((*ptr1)!='\0')
+    {
+        for(int i=0;i<128;++i)
+            ascii[i]=0;
+        count=0;
+        ptr2=ptr1;
+        while((*ptr2)!='\0')
+        {
+            if(ascii[*ptr2])
+                break;
+            ascii[*ptr2]++;
+            count++;
+            ptr2++;
+        }
+        
+        max_count=max_count>count?max_count:count;
+        ptr1++;
+    }
+    return max_count;
+}
