@@ -18,7 +18,7 @@ int maxSubArray(int* nums, int numsSize){
 }
 
 
-//method 2 : 隊友強不強(?)理論
+//method 2 : 隊友強不強(?)理論 >>> Kadane’s Algorithm
 
 int maxSubArray(int* nums, int numsSize){
     
