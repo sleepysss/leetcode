@@ -1,34 +1,4 @@
-int partition(int *coins,int first,int end)
-{
-    int s=first-1,pivot=coins[end],temp;
-    
-    for(int i=first;i<=end;++i)
-    {
-        if(coins[i]<pivot)
-        {
-            s++;
-            temp=coins[s];
-            coins[s]=coins[i];
-            coins[i]=temp;
-        }
-    }
-    s++;
-    temp=coins[s];
-    coins[s]=coins[end];
-    coins[end]=temp;
-    return s;
-}
-
-void quicksort(int *coins,int first,int end)
-{
-    if(end>first)
-    {
-        int pivot=partition(coins,first,end);
-        quicksort(coins,first,pivot-1);
-        quicksort(coins,pivot+1,end);
-    }
-}
-
+//method 1 : brute force ...TLE
 
 int coinChange(int* coins, int coinsSize, int amount){
     
