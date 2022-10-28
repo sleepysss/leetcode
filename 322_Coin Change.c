@@ -2,7 +2,8 @@
 
 int coinChange(int* coins, int coinsSize, int amount){
     
-    //F(amount) = F(amount - coins[i]) + 1
+    // n 為金額， c1… ck為面額
+    //f(n) = Min( 1 + f(n- c1), 1+ f(n-c2),…, 1+f(n-ck) )
     
     
     int needcoin,min=10001;
