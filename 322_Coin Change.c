@@ -1,4 +1,4 @@
-//method 1 : brute force (permutation) ...TLE
+//method 1 : 
 
 int coinChange(int* coins, int coinsSize, int amount){
     
