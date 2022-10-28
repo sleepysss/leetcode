@@ -32,6 +32,9 @@ void quicksort(int *coins,int first,int end)
 
 int coinChange(int* coins, int coinsSize, int amount){
     
+    //F(amount) = F(amount - coins[i]) + 1
+    
+    
     int needcoin,min=10001;
     
     if(amount==0)
