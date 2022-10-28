@@ -37,7 +37,7 @@ int coinChange(int* coins, int coinsSize, int amount){
     // n 為金額， c1… ck為面額
     //f(n) = Min( 1 + f(n- c1), 1+ f(n-c2),…, 1+f(n-ck) )
     
-    int *store=(int *)malloc(sizeof(int)*(amount+1)),min,back,coin_index;
+    int *store=(int *)malloc(sizeof(int)*(amount+1)),min,back,coin_index; //store[i]:fewest number of coins when amount is i
     store[0]=0; //init
     //不能有以下,因為可能amount太小,導致會overflow,反正最後個個扣掉後都會到store[0]
     //for(int i=0;i<coinsSize;++i)
