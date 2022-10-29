@@ -1,5 +1,6 @@
 int climbStairs(int n){
     //費氏數列  
+    //因为每次只能爬1或2步，那么爬到第n层的方法要么是从第 n-1 层一步上来的，要不就是从 n-2 层2步上来的
   
     int *store=(int *)malloc(sizeof(int)*(n+1)),back;
     store[0]=1;
