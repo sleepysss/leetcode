@@ -1,3 +1,4 @@
+//method 1 : DP
 int fib(int N){
     
     if(N==0)
@@ -16,3 +17,17 @@ int fib(int N){
     free(store);
     return back;
 }
+
+//method 2
+int fib(int N) {
+        if(N < 2) 
+            return N;
+    	int a = 0, b = 1, c = 0; //a:fib(i-2) b:fib(i-1) c:fib(i)
+        for(int i = 2; i <= N; ++i)
+        {
+            c = a + b; 
+            a = b;
+            b = c;
+        }
+        return c;
+    }
