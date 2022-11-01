@@ -126,4 +126,60 @@ int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
     return store; 
 }
 
+//method 2
+
+int count_num(int num) //Factorial
+{
+    int store=1;
+    for(int i=1;i<=num;++i)
+        store*=i;
+    return store;
+}
+
+void permutation_helper(int *nums,int k,int j,int **store,int *where,int numsSize)  
+{
+    int temp;
+    if(k==j)
+    {
+        for(int i=0;i<numsSize;++i)
+        {
+            store[(*where)][i]=nums[i];
+        }
+        (*where)++;
+        return;
+    }
+    
+    for(int i=k;i<=j;++i)
+    {
+        temp=nums[i];
+        nums[i]=nums[k];
+        nums[k]=temp;
+        
+        
+        permutation_helper(nums,k+1,j,store,where,numsSize);
+        
+        temp=nums[i];
+        nums[i]=nums[k];
+        nums[k]=temp;  
+    } 
+}
+
+int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
+    
+    int num=count_num(numsSize),where=0;
+    
+    int **store=(int **)malloc(sizeof(int *)*num);
+    for(int i=0;i<num;++i)
+        store[i]=(int *)malloc(sizeof(int)*numsSize);
+    
+    permutation_helper(nums,0,numsSize-1,store,&where,numsSize);
+    
+    int *ptr=(int *)malloc(sizeof(int)*num);
+    for(int i=0;i<num;++i)
+        ptr[i]=numsSize;
+    *returnColumnSizes=ptr;
+    *returnSize=num;
+    
+    return store; 
+}
 
