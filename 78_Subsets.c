@@ -14,6 +14,10 @@ int pow2(int num)
 
 void subset_helper(int *nums,int numsSize,int index,int *where_addr,int *helper,int *helper_index_addr,int *return_arr,int **store)
 {
+    //this time let us loop over the length of combination, rather than the candidate numbers, 
+    //and generate all combinations for a given length with the help of backtracking technique.
+    
+    
     if(index==numsSize)  
     {
         return_arr[(*where_addr)]=(*helper_index_addr);
