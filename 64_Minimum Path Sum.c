@@ -5,7 +5,7 @@ int min(int a,int b)
 
 int minPathSum(int** grid, int gridSize, int* gridColSize){
       
-    //和62題的思路一樣
+    //和62題的思路類似
     int store[gridSize+1][(*gridColSize)+1],sum; //store[i][j]:minPathSum of i*j array
     
     store[1][1]=grid[0][0];
