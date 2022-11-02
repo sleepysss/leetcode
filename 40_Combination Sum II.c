@@ -5,7 +5,7 @@
  * The sizes of the arrays are returned as *returnColumnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
-void combinationSum2_helper(int *candidates,int candidatesSize,int target,int helper_total,int helper_index,int **store,int *where_addr,int *return_arr,int *helper,int start,int *visited) //start:可選的開始
+void combinationSum2_helper(int *candidates,int candidatesSize,int target,int helper_total,int helper_index,int **store,int *where_addr,int *return_arr,int *helper,int start) //start:可選的開始
 {
     int flag;
     if(helper_total==target)
@@ -44,18 +44,15 @@ void combinationSum2_helper(int *candidates,int candidatesSize,int target,int he
     
     for(int i=start;i<candidatesSize;++i) //[2 2 3] 和 [3 2 2] 視為同一個,所以要有start這個東西
     {
-        if(!visited[i])
-        {
             helper[helper_index++]=candidates[i];
             helper_total+=candidates[i];
-            visited[i]=1;
+        
 
-            combinationSum2_helper(candidates,candidatesSize,target,helper_total,helper_index,store,where_addr,return_arr,helper,i,visited);
+            combinationSum2_helper(candidates,candidatesSize,target,helper_total,helper_index,store,where_addr,return_arr,helper,i+1);
 
             helper_index--;
             helper_total-=candidates[i];
-            visited[i]=0;
-        }
+            
             
     }
 }
@@ -103,13 +100,10 @@ int** combinationSum2(int* candidates, int candidatesSize, int target, int* retu
     int where=0,helper_index=0,index=0,helper_total=0;
     int *helper=(int *)malloc(sizeof(int)*30), *return_arr2; //
     int *return_arr=(int *)malloc(sizeof(int)*300);
-    int *visited=(int *)malloc(sizeof(int)*candidatesSize);
-    for(int i=0;i<candidatesSize;++i)
-        visited[i]=0;
     
     quicksort(candidates, 0, candidatesSize-1);
     
-    combinationSum2_helper(candidates,candidatesSize,target,helper_total,helper_index,store,&where,return_arr,helper,0,visited);
+    combinationSum2_helper(candidates,candidatesSize,target,helper_total,helper_index,store,&where,return_arr,helper,0);
     
     //算實際數量
     for(int i=0;i<300;++i)
