@@ -2,20 +2,20 @@
 
 int uniquePaths(int m, int n){
     
-    int A[m+1][n+1]; //多令一格(0的省略)
+    //uniquePaths(m,n)=uniquePaths(m-1,n)+uniquePaths(m,n-1)
     
-    for(int i=0;i<m+1;++i)
-        A[i][1]=1;
-    for(int i=0;i<n+1;++i)
-        A[1][i]=1;
+    int store[m+1][n+1];  //store[i][j]:uniquePaths(i,j)
     
-    for(int i=2;i<m+1;++i)
+    for(int i=1;i<=m;++i) //row
+        store[i][1]=1;
+    for(int i=1;i<=n;++i)  //column
+        store[1][i]=1;
+    
+    for(int i=2;i<=m;++i)
     {
-        for(int j=2;j<n+1;++j)
-            A[i][j]=A[i-1][j]+A[i][j-1];
+        for(int j=2;j<=n;++j)
+            store[i][j]=store[i-1][j]+store[i][j-1];
     }
     
-    
-    return A[m][n];
-    
+    return store[m][n];
 }
