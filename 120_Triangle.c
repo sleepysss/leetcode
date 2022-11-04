@@ -80,3 +80,39 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
     }
     return min;
 }
+
+//method 4 : 改良版的method3(space:O(n))
+
+int findmin(int a,int b)
+{
+    return a>b?b:a;
+}
+
+int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
+
+    int store[triangleSize],min; 
+
+    //init(base case)
+    store[0]=triangle[0][0];
+
+    for(int i=1;i<triangleSize;++i)
+    {
+        for(int j=i;j>=0;--j) //不能前往後更新
+        {
+            if(j==i)
+                store[j]=triangle[i][j]+store[j-1];
+            else if(j==0)
+                store[j]=triangle[i][j]+store[j];
+            else
+                store[j]=triangle[i][j]+findmin(store[j],store[j-1]);
+        }
+    }
+    //求最小的
+    min=store[0];
+    for(int i=1;i<triangleSize;++i)  //triangleSize 和 triangleColSize[triangleSize-1] 一樣大小
+    {
+        if(store[i]<min)
+            min=store[i];
+    }
+    return min;
+}
