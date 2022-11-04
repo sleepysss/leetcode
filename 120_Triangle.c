@@ -58,17 +58,17 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
 
     //init(base case)
     store[0][0]=triangle[0][0];
-    for(int i=1;i<triangleSize;++i)
-        store[i][0]=triangle[i][0]+store[i-1][0];  //最左邊一行先設為各自的數字和他上面數字的總和
 
     for(int i=1;i<triangleSize;++i)
     {
-        for(int j=1;j<=i;++j) //j=0為base case
+        for(int j=0;j<=i;++j) //j=0為base case
         {
-            if(j!=i)
-                store[i][j]=triangle[i][j]+findmin(store[i-1][j],store[i-1][j-1]);
-            else
+            if(j==i)
                 store[i][j]=triangle[i][j]+store[i-1][j-1];
+            else if(j==0)
+                store[i][j]=triangle[i][j]+store[i-1][j];
+            else
+                store[i][j]=triangle[i][j]+findmin(store[i-1][j],store[i-1][j-1]);
         }
     }
     //求最後一列最小的
@@ -80,4 +80,3 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
     }
     return min;
 }
-
