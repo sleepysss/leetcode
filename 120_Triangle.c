@@ -1,4 +1,4 @@
-//naive recursive ... TLE
+//method 1 : naive recursive(下到上) ... TLE
 
 int min(int a,int b)
 {
@@ -18,7 +18,7 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
 }
 
 
-//method 2 : DP
+//method 2 : DP(下到上)
 
 int min(int a,int b)
 {
@@ -45,7 +45,7 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
 }
 
 
-//method 3
+//method 3 : DP(上到下)
 
 int findmin(int a,int b)
 {
@@ -54,18 +54,12 @@ int findmin(int a,int b)
 
 int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
 
-    //return triangleSize;
-    int x=triangle[3][0];
-    return x;
-
-
     int store[triangleSize][triangleSize],min; //store[i][j]=從最上面走到i列j行的ans
 
     //init(base case)
-    for(int i=0;i<triangleSize;++i)
-        store[i][0]=triangle[i][0];  //最左邊一行先設為各自的數字
-
-    return triangle[1][0];
+    store[0][0]=triangle[0][0];
+    for(int i=1;i<triangleSize;++i)
+        store[i][0]=triangle[i][0]+store[i-1][0];  //最左邊一行先設為各自的數字和他上面數字的總和
 
     for(int i=1;i<triangleSize;++i)
     {
@@ -75,11 +69,11 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
                 store[i][j]=triangle[i][j]+findmin(store[i-1][j],store[i-1][j-1]);
             else
                 store[i][j]=triangle[i][j]+store[i-1][j-1];
-
         }
     }
+    //求最後一列最小的
     min=store[triangleSize-1][0];
-    for(int i=0;i<triangleSize;++i)  //triangleSize 和 triangleColSize[triangleSize-1] 一樣大小
+    for(int i=1;i<triangleSize;++i)  //triangleSize 和 triangleColSize[triangleSize-1] 一樣大小
     {
         if(store[triangleSize-1][i]<min)
             min=store[triangleSize-1][i];
