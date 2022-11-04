@@ -43,3 +43,47 @@ int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
 
     return store[0][0];
 }
+
+
+//method 3
+
+int findmin(int a,int b)
+{
+    return a>b?b:a;
+}
+
+int minimumTotal(int** triangle, int triangleSize, int* triangleColSize){
+
+    //return triangleSize;
+    int x=triangle[3][0];
+    return x;
+
+
+    int store[triangleSize][triangleSize],min; //store[i][j]=從最上面走到i列j行的ans
+
+    //init(base case)
+    for(int i=0;i<triangleSize;++i)
+        store[i][0]=triangle[i][0];  //最左邊一行先設為各自的數字
+
+    return triangle[1][0];
+
+    for(int i=1;i<triangleSize;++i)
+    {
+        for(int j=1;j<=i;++j) //j=0為base case
+        {
+            if(j!=i)
+                store[i][j]=triangle[i][j]+findmin(store[i-1][j],store[i-1][j-1]);
+            else
+                store[i][j]=triangle[i][j]+store[i-1][j-1];
+
+        }
+    }
+    min=store[triangleSize-1][0];
+    for(int i=0;i<triangleSize;++i)  //triangleSize 和 triangleColSize[triangleSize-1] 一樣大小
+    {
+        if(store[triangleSize-1][i]<min)
+            min=store[triangleSize-1][i];
+    }
+    return min;
+}
+
