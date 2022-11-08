@@ -1,3 +1,5 @@
+//method 1
+
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
@@ -41,4 +43,45 @@ char ** generateParenthesis(int n, int* returnSize){
     Store = (char **)realloc(Store, sizeof(char *) *count); //多的捨棄
     return Store;
 
+}
+
+//method 2
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+void gP_helper(int n,int **store,char *helper,int helper_index,int left,int right,int *where)
+{
+    if(helper_index==(2*n))
+    {
+        helper[2*n]='\0';
+        store[(*where)]=(char *)malloc(sizeof(char)*(2*n+1));
+        strcpy(store[(*where)],helper);
+        *where=(*where)+1;
+        return;
+    }
+
+    if(left<n)
+    {
+        helper[helper_index]='(';
+        gP_helper(n,store,helper,helper_index+1,left+1,right,where);
+    }
+    if(left>right)
+    {
+        helper[helper_index]=')';
+        gP_helper(n,store,helper,helper_index+1,left,right+1,where);
+    }
+}
+
+char ** generateParenthesis(int n, int* returnSize){
+
+    int where=0;
+    char **store=(char **)malloc(sizeof(char *)*3000), **store2;
+    char helper[2*n+1];
+    gP_helper(n,store,helper,0,0,0,&where);
+    store2=realloc(store,sizeof(char *)*where);
+    *returnSize=where;
+
+    return store2;
 }
