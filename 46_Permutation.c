@@ -183,3 +183,42 @@ int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
     return store; 
 }
 
+
+//C++ ver.
+
+class Solution {
+public:
+    void permutation_helper(vector<int> &nums, vector<bool> &visited, vector<int> &store, vector<vector<int>> &ans)
+    {
+        if(store.size()==nums.size())
+        {
+            ans.push_back(store);
+            return;
+        }
+
+        for(int i=0;i<nums.size();++i)
+        {
+            if(!visited[i])
+            {
+                visited[i]=1;
+                store.push_back(nums[i]);
+                permutation_helper(nums,visited,store,ans);
+                store.pop_back();
+                visited[i]=0;
+            }
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+
+        vector<bool> visited(nums.size(),0);
+        vector<int> store;
+        vector<vector<int>> ans;
+        permutation_helper(nums,visited,store,ans);
+        return ans;
+    }
+};
+
+
+
+
+
