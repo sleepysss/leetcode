@@ -42,3 +42,45 @@ public:
         return ans;
     }
 };
+
+//method 2 : two pointer
+
+class Solution {
+public:
+
+    vector<vector<int>> threeSum(vector<int>& nums) {
+
+        int left,right;
+        vector<vector<int>> ans;
+        sort(nums.begin(),nums.end());
+
+        for(int i=0;i<nums.size()-2;++i)
+        {
+            if(i>0&&nums[i]==nums[i-1]) //解決duplicate
+                continue;
+            else  //類似two sum的方法
+            {
+                 left=i+1;
+                right=nums.size()-1;
+                while(left<right)
+                {
+                    if(nums[left]+nums[right]==-nums[i]) 
+                    {
+                        ans.push_back({nums[i],nums[left],nums[right]});
+                        while(left<right&&nums[right]==nums[right-1]) //解決duplicate
+                            right--;
+                        while(left<right&&nums[left]==nums[left+1]) //解決duplicate
+                            left++;   
+                        right--;
+                        left++;
+                    }   
+                    else if(nums[left]+nums[right]>-nums[i])
+                        right--;
+                    else
+                        left++;
+                }
+            }
+        }
+        return ans;
+    }
+};
