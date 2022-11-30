@@ -2,7 +2,7 @@
 
 class Solution {
 public:
-
+    // compare the temp array with the arrays stored in your res array to detect a duplicate set and if duplicate continue
     bool duplicate(const vector<vector<int>> &ans,const vector<int> &tmp)
     {
         for(int i=0;i<ans.size();++i)
