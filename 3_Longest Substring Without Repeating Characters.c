@@ -126,3 +126,29 @@ public:
         return max;
     }
 };
+
+//method 4 : method 2的改寫
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+
+        int store[128]={0},max=0,right=0,left=0; 
+
+        while(right<s.size())
+        {
+            if(store[s[right]]) //要加的在store中已存在
+            {
+                store[s[left]]=0;
+                left++;
+            }
+            else
+            {
+                store[s[right]]=1;
+                max=max>(right-left+1)?max:right-left+1;
+                right++;
+            }
+        }
+        return max;
+    }
+};
