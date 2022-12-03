@@ -34,3 +34,34 @@ public:
         return false;
     }
 };
+
+
+//method 3 : hash table + sliding window
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        
+        //maintain 一個fixed size的sliding window,size為k+1
+
+        unordered_map<int,int> m;
+        
+        //init
+        for(int i=0;i<=k&&i<nums.size();++i)
+        {
+            if(m.count(nums[i]))
+                return true;
+            m[nums[i]]=i;
+        }
+
+        for(int i=k+1;i<nums.size();++i)
+        {
+            m.erase(nums[i-k-1]); //window往右一格
+            if(m.count(nums[i]))
+                return true;
+            m[nums[i]]=i;
+        }
+        return false;
+    }
+};
+
