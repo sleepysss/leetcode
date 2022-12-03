@@ -1,15 +1,17 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int count[3]={0},i;
+        int count[3]={0};
 
-        for(i=0;i<nums.size();++i)
+        for(int i=0;i<nums.size();++i)
             count[nums[i]]++;
-        for(i=0;i<count[0];++i)
-            nums[i]=0;
-        for(i=0;i<count[1];++i)
-            nums[i+count[0]]=1;
-        for(i=0;i<count[2];++i)
-            nums[i+count[0]+count[1]]=2;
+        
+        int curr=0;
+        for(int i=0;i<3;++i) //three colors
+        {
+            for(int j=0;j<count[i];++j) //each amount
+                nums[curr++]=i;
+        }
+
     }
 };
