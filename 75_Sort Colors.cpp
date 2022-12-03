@@ -42,7 +42,7 @@ public:
                 nums[i]=nums[blue];
                 nums[blue]=tmp;
                 blue--;
-                i--;  //因為可能會把0,1,2swap到原本位置
+                i--;  //因為可能會把0,1,2swap到原本位置,而0,2會引發問題,所以要i--
             }
         }
     }
