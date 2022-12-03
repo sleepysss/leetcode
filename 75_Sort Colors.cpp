@@ -1,3 +1,5 @@
+//method 1 : count sort
+
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
