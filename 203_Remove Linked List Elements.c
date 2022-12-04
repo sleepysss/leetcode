@@ -1,3 +1,5 @@
+//method 1 : traverse到要刪的點時才刪(需多一個prenode)
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -29,3 +31,37 @@ struct ListNode* removeElements(struct ListNode* head, int val){
     
     return dummy.next;
 }
+
+
+//method 2 : traverse 到要刪的點的前一個就刪了
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+
+        ListNode dummy(-1,head);
+        ListNode *ptr=&dummy;
+        while(ptr)
+        {
+            if(ptr->next&&ptr->next->val==val) //Traverse to element before the element to be deleted
+            {
+                ListNode *tmp=ptr->next;
+                ptr->next=ptr->next->next;
+                delete tmp;
+            }
+            else  //確定下一個不會是要刪的才移動
+                ptr=ptr->next;
+        }
+        return dummy.next;
+    }
+};
