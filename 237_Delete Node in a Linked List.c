@@ -1,3 +1,5 @@
+//method 1
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -15,3 +17,19 @@ void deleteNode(struct ListNode* node) {
     node->next=temp->next;
     free(temp);
 }
+
+//method 2
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        ListNode *pre;
+        while(node->next)
+        {
+            pre=node;
+            node->val=node->next->val;
+            node=node->next;
+        }
+        pre->next=NULL;
+    }
+};
