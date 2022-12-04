@@ -1,4 +1,4 @@
-//method 1
+//method 1 : Delete next node instead of current one
 
 /**
  * Definition for singly-linked list.
@@ -18,7 +18,7 @@ void deleteNode(struct ListNode* node) {
     free(temp);
 }
 
-//method 2
+//method 2 : 不太好的方法ㄏㄏ
 
 class Solution {
 public:
