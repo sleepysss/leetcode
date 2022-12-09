@@ -1,3 +1,5 @@
+//method 1 : monotonic stack
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -48,5 +50,46 @@ public:
         }
         return dummy.next;
         
+    }
+};
+
+//method 2 : recerse
+
+class Solution {
+public:
+    ListNode *reverselist(ListNode* head)
+    {
+        ListNode *pre=nullptr, *curr=head, *next;
+        while(curr)
+        {
+            next=curr->next;
+            curr->next=pre;
+            pre=curr;
+            curr=next;
+        }
+        return pre;
+    }
+
+    ListNode* removeNodes(ListNode* head) {
+
+        ListNode *newhead=reverselist(head);
+        int biggest=newhead->val;
+        ListNode *ptr=newhead;
+        while(ptr)
+        {
+            if(ptr->next&&ptr->next->val<biggest)
+            {
+                ListNode *temp=ptr->next;
+                ptr->next=ptr->next->next;
+                continue;
+            }
+            else
+            {
+                if(ptr->next)
+                    biggest=ptr->next->val;
+            }
+            ptr=ptr->next;
+        }
+        return reverselist(newhead);
     }
 };
