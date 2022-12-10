@@ -53,7 +53,7 @@ public:
     }
 };
 
-//method 2 : recerse
+//method 2 : reverse
 
 class Solution {
 public:
