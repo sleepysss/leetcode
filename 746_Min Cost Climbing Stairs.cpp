@@ -36,12 +36,12 @@ public:
     
     int minCostClimbingStairs(vector<int>& cost) {
 
-        vector<int> store(cost.size()+2); //store[i]:爬到第i階的mincost
+        vector<int> store(cost.size()+1); //store[i]:到index i的階梯需要的min cost
+        store[0]=0; //index 0的階梯就是正常認知中的第1階
         store[1]=0;
-        store[2]=0;
-        for(int i=3;i<=cost.size()+1;++i)
-            store[i]=min(store[i-1]+cost[i-2],store[i-2]+cost[i-3]);
+        for(int i=2;i<=cost.size();++i)
+            store[i]=min(store[i-1]+cost[i-1],store[i-2]+cost[i-2]);
 
-        return store[cost.size()+1];
+        return store[cost.size()];
     }
 };
