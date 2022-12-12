@@ -1,4 +1,4 @@
-//method 1 : naive brute force
+//method 1 : naive recursive
 
 class Solution {
 public:
