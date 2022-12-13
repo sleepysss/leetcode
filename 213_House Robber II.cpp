@@ -7,6 +7,12 @@ public:
     }
 
     int rob(vector<int>& nums) {
+        
+        //Actually there are four cases, but with first and last element is invalid, 
+        //and without both is already covered by either case described above. which is R R, R N, N R and N N, 
+        //where R stands for rob and N stands for no rob. R R is invalid. R N and N N is covered by without last element, 
+        //and NR and N N is covered by without first element.
+        
         if(nums.size()==1)
             return nums[0];
         if(nums.size()==2)
