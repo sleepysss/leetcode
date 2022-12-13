@@ -1,3 +1,5 @@
+//method 1
+
 class Solution {
 public:
 
@@ -44,5 +46,47 @@ public:
         }
         
         return store[v1.size()-1];
+    }
+};
+
+//method 2
+
+class Solution {
+public:
+
+    int max(int a,int b)
+    {
+        return a>b?a:b;
+    }
+
+    int deleteAndEarn(vector<int>& nums) {
+
+        sort(nums.begin(),nums.end()); //必須
+        unordered_map<int,int> m;
+        int biggest;  //biggest value in nums
+        
+        for(int i=0;i<nums.size();++i)
+        {
+            if(m.count(nums[i])) //exist in map
+                m[nums[i]]=m[nums[i]]+nums[i];
+            else //does not exist in map
+            {
+                m[nums[i]]=nums[i];
+                biggest=nums[i];
+            }
+        }
+        vector<int> store(biggest+1);  //store[i]:index 0~i biggest
+        if(m.size()==1)
+            return m[biggest];
+        store[1]=m.count(1)?m[1]:0;
+        if(m.count(2))
+            store[2]=max(store[1],m[2]);
+        else
+            store[2]=store[1];
+
+        for(int i=3;i<=biggest;++i)
+            store[i]=m.count(i)?max(store[i-1],store[i-2]+m[i]):store[i-1];
+
+        return store[biggest];
     }
 };
