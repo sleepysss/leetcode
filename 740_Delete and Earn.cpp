@@ -30,8 +30,6 @@ public:
         if(v1.size()==1) //for case: [1,1],不會有v1[1]
             return m[v1[0]];
 
-       // return m[3];
-
         vector<int> store(v1.size()); //store[i]:index 0~i能得到的最多points
         store[0]=m[v1[0]];
 
