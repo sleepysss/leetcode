@@ -1,4 +1,5 @@
 class Solution {
+class Solution {
 public:
 
     int max(int a,int b)
@@ -13,38 +14,23 @@ public:
     int deleteAndEarn(vector<int>& nums) {
 
         sort(nums.begin(),nums.end());
-        
-        //mapping (選某個值可拿到多少points)
         unordered_map<int,int> m;
         vector<int> v1;
-        int sum=nums[0];
-        for(int i=0;i<nums.size()-1;++i)
+
+        for(int i=0;i<nums.size();++i)
         {
-            if(nums[i]==nums[i+1]) //和後一個一樣
+            if(m.count(nums[i])) //exist in map
+                m[nums[i]]=m[nums[i]]+nums[i];
+            else //does not exist in map
             {
-                sum+=nums[i];
-                if(i==nums.size()-2) //traverse到最後了
-                {
-                    m[nums[i]]=sum;
-                    v1.push_back(nums[i]);
-                }
-            }
-            else //和後一個值不一樣
-            {
-                m[nums[i]]=sum;
-                sum=nums[i+1];
+                m[nums[i]]=nums[i];
                 v1.push_back(nums[i]);
-                if(i==nums.size()-2)  //traverse到最後了
-                {
-                    m[nums[i+1]]=nums[i+1];
-                    v1.push_back(nums[i+1]);
-                }
             }
         }
-        if(v1.size()==0)  //for case: [1],不會有v1[0]...
-            return nums[0];
-        if(v1.size()==1) //for case: [1,1],不會有v1[1]...
+        if(v1.size()==1) //for case: [1,1],不會有v1[1]
             return m[v1[0]];
+
+       // return m[3];
 
         vector<int> store(v1.size()); //store[i]:index 0~i能得到的最多points
         store[0]=m[v1[0]];
