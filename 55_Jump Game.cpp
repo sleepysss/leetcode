@@ -44,3 +44,27 @@ public:
         return store[nums.size()-1];
     }
 };
+
+
+//method 3 : DP
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+    
+        vector<bool> store(nums.size()); //store[i]:可否從index i到最後一個index
+        store[store.size()-1]=true;
+        for(int i=nums.size()-2;i>=0;--i)
+        {
+            for(int j=i+1;j<=nums[i]+i;++j)
+            {
+                if(store[j])
+                {
+                    store[i]=true;
+                    break;
+                }
+            }
+        }
+        return store[0];
+    }
+};
