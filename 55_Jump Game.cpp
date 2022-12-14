@@ -56,7 +56,7 @@ public:
         store[store.size()-1]=true;
         for(int i=nums.size()-2;i>=0;--i)
         {
-            for(int j=i+1;j<=nums[i]+i;++j)
+            for(int j=i+1;j<=nums[i]+i&&j<=nums.size();++j)
             {
                 if(store[j])
                 {
