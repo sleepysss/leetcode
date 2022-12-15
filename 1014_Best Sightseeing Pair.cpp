@@ -22,7 +22,7 @@ class Solution {
 public:
     int maxScoreSightseeingPair(vector<int>& values) {
 
-        vector<int> store(values.size()); //store[i]: index 0~i中values[i]+i最大的
+        vector<int> store(values.size()); //store[i]: index 0~i中values[index]+index最大的
         store[0]=values[0]+0;
         int ans=0;
         for(int j=1;j<store.size();++j)
