@@ -1,3 +1,5 @@
+//method 1 : Bottom-Up DP
+
 int climbStairs(int n){
     //費氏數列  
     //因为每次只能爬1或2步，那么爬到第n层的方法要么是从第 n-1 层一步上来的，要不就是从 n-2 层2步上来的
@@ -13,3 +15,27 @@ int climbStairs(int n){
     free(store);
     return back;
 }
+
+
+//method 2 : Top-Down DP
+
+class Solution {
+public:
+    int helper(int n,vector<int> &store)  //到該step的方法數
+    {
+        if(store[n])
+            return store[n];
+        else
+        {
+            store[n]=helper(n-1,store)+helper(n-2,store);
+            return store[n];
+        }
+    }
+
+    int climbStairs(int n) {
+        vector<int> store(n+1);
+        store[0]=1;
+        store[1]=1;
+        return helper(n,store);
+    }
+};
