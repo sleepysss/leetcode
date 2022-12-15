@@ -23,13 +23,10 @@ class Solution {
 public:
     int helper(int n,vector<int> &store)  //到該step的方法數
     {
-        if(store[n])
+        if(store[n]) //已有
             return store[n];
         else
-        {
-            store[n]=helper(n-1,store)+helper(n-2,store);
-            return store[n];
-        }
+            return store[n]=helper(n-1,store)+helper(n-2,store); //每個運算式(expression)都會計算出一個值
     }
 
     int climbStairs(int n) {
