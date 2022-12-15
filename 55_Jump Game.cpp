@@ -11,7 +11,7 @@ public:
 
         for(int i=1;i<=nums[index];++i)
         {
-            if(helper(nums,index+i))
+            if(helper(nums,index+i)) //有沒有辦法從index:index+i到終點
                 return true;
         }
         return false;
