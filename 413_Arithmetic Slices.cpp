@@ -1,3 +1,28 @@
+//method 1 : brute force
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+
+        if(nums.size()<3) //at least three elements
+            return 0;
+        int count=0;
+        for(int i=0;i<nums.size()-2;++i)
+        {
+            for(int j=i+2;j<nums.size();++j)
+            {
+                if(nums[j]-nums[j-1]==nums[j-1]-nums[j-2])
+                    count++;
+                else
+                    break;
+            }
+        }
+        return count;
+    }
+};
+
+
+//method 2 : DP
+
 class Solution {
 public:
     int numberOfArithmeticSlices(vector<int>& nums) {
