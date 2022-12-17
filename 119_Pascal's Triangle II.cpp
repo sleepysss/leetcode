@@ -34,6 +34,8 @@ public:
             temp2=1; //init
             for(int j=1;j<i;++j)
             {
+                //因为更新当前j的时候，就把之前j的信息覆盖掉了。
+                //而更新 j + 1 的时候又需要之前j的信息，所以在更新前，我们需要一个变量把之前j的信息保存起来
                 temp1=ans[j]; //curr
                 ans[j]=temp2+temp1;
                 temp2=temp1; //pre
