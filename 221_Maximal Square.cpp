@@ -8,6 +8,7 @@ public:
 
         for(int i=1;i<=x;++i) //length of square
         {
+            //matrix[j][k]:square最左上角的位置
             for(int j=0;j<=matrix[0].size()-i;++j) //往右
             {
                 int flag=0;
