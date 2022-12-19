@@ -6,7 +6,7 @@ public:
 
         int ans=0,x=matrix[0].size()<matrix.size()?matrix[0].size():matrix.size();
 
-        for(int i=1;i<=x;++i) //size of square
+        for(int i=1;i<=x;++i) //length of square
         {
             for(int j=0;j<=matrix[0].size()-i;++j) //往右
             {
