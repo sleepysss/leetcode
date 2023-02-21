@@ -59,7 +59,7 @@ public:
                 ptr->next=ptr->next->next;
                 delete tmp;
             }
-            else  //確定下一個不會是要刪的才移動
+            else  //確定下一個不會是要刪的才移動(這裡要注意！！！,直接移的話可能會有error(ex: 1->1->1->1 刪1))
                 ptr=ptr->next;
         }
         return dummy.next;
