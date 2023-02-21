@@ -11,7 +11,11 @@ void deleteNode(struct ListNode* node) {
     struct ListNode *temp;
     
     //because we need to know pre-node when delete,but in this question we dont know,so we use replacement method
-    //ie: delete 5  ----> delete 1
+    //ie:  1 ->2 ->3 ->null
+    //delete 2  ----> delete 3 (替生術)
+    //steps:
+    //(1) 2換成3
+    //(2) 2指向3的next
     temp=node->next;
     node->val=temp->val;
     node->next=temp->next;
