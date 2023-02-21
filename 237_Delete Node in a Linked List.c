@@ -12,7 +12,7 @@ void deleteNode(struct ListNode* node) {
     
     //because we need to know pre-node when delete,but in this question we dont know,so we use replacement method
     //ie:  1 ->2 ->3 ->null
-    //delete 2  ----> delete 3 (替生術)
+    //delete 2  ----> delete 3 (Delete next node instead of current one)
     //steps:
     //(1) 2換成3
     //(2) 2指向3的next
