@@ -97,3 +97,38 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
 }
 
 
+
+//method 3 
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
+
+    int x=0,sum;
+    struct ListNode dummy;
+    struct ListNode *ptr=&dummy;
+
+    while(l1||l2||x)
+    {
+        ptr->next=
+        (struct ListNode *)malloc(sizeof(struct ListNode));
+        ptr=ptr->next;
+        sum=x;
+        if(l1)
+        {
+            sum+=l1->val;
+            l1=l1->next;
+        } 
+        if(l2)
+        {
+            sum+=l2->val;
+            l2=l2->next;
+        } 
+        x=sum/10;
+        sum%=10;
+        ptr->val=sum;
+        ptr->next=NULL;
+
+    }
+     return dummy.next;
+}
+
+
