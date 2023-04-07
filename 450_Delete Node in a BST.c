@@ -14,6 +14,25 @@ int find_smallest(struct TreeNode *root)
     return root->val;
 }
 
+/*
+
+find_smallest的另一種寫法
+
+int findsmallest(struct TreeNode *root)
+{
+    int val=root->val;
+    while(root->left)
+    {
+        val=root->left->val;
+        root=root->left;
+    }
+    return val;
+}
+
+
+*/
+
+
 struct TreeNode* deleteNode(struct TreeNode* root, int key){
     
     if(!root)
@@ -23,8 +42,8 @@ struct TreeNode* deleteNode(struct TreeNode* root, int key){
         if(root->left&&root->right)
         {
             int smallest_in_right_subtree=find_smallest(root->right);
-            root->val=smallest_in_right_subtree;
-            root->right=deleteNode(root->right,smallest_in_right_subtree);
+            root->val=smallest_in_right_subtree; //替換
+            root->right=deleteNode(root->right,smallest_in_right_subtree); //刪掉替換的那個node
         }
         else
         {
