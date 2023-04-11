@@ -6,7 +6,7 @@ typedef struct {
 
 MyCircularQueue* myCircularQueueCreate(int k) {
     MyCircularQueue *q=(MyCircularQueue *)malloc(sizeof(MyCircularQueue));
-    q->store=(int *)malloc(sizeof(int)*(k+1));
+    q->store=(int *)malloc(sizeof(int)*(k+1));  //要多設一格,因為其中一個需要被浪費
     q->size=k+1;
     q->front=q->rear=0;
     return q;
