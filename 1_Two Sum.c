@@ -2,7 +2,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
-//brute force
+//mathod 1: brute force
 int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     int flag=0,i,j,store;
     
@@ -27,3 +27,24 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     *returnSize=2;
     return Store;
 }
+
+//method 2: hash table
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+        vector<int> ans;
+        unordered_map<int,int> m1={{nums[0],0}};
+        for(int i=1;i<nums.size();++i)
+        {
+            if(m1.find(target-nums[i])!=m1.end())
+            {
+                ans={m1[target-nums[i]],i};
+                return ans;
+            }
+            else
+                m1[nums[i]]=i;
+        }  
+        return ans; 
+    }
+};
