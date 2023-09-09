@@ -132,3 +132,41 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
 }
 
 
+
+//c++ ver
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+        ListNode dummy;
+        dummy.next=NULL;
+        ListNode *ptr=&dummy;
+        int val,val1,val2,carry=0;
+
+        while(l1||l2||carry)
+        {
+            val1=l1?l1->val:0;
+            val2=l2?l2->val:0;
+            val=(val1+val2+carry)%10;
+            carry=(val1+val2+carry)/10;
+            ptr->next=new ListNode(val);
+            ptr=ptr->next;
+            l1=l1?l1->next:l1;
+            l2=l2?l2->next:l2;
+        }
+        return dummy.next;
+    }
+};
+
+
