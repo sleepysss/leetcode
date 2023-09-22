@@ -77,3 +77,24 @@ struct ListNode* reverseList(struct ListNode* head){
     return store;  //store is finished reverse's linked list 's head  ie:5
 }
 
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+
+        if(!head)
+            return NULL;
+        if(!(head->next))
+            return head;
+
+        ListNode *ptr=reverseList(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return ptr;
+    }
+};
+
+
+
+
+
