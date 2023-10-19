@@ -226,3 +226,41 @@ int** combinationSum2(int* candidates, int candidatesSize, int target, int* retu
 }
 
 
+//C++ ver
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> ans;
+        int index = 0;
+        vector<int> path;
+        get_ans(candidates,target,path,index,ans);
+        return ans;
+    }
+
+    void get_ans(vector<int>& candidates,int target,vector<int>& path,int index,vector<vector<int>>& ans)
+    {
+        if(target==0)
+        {
+            ans.push_back(path);
+            return;
+        }
+        else if(target<0)
+            return;
+
+        for(int i=index;i<candidates.size();++i)
+        {
+            if(i>index && candidates[i]==candidates[i-1])
+                continue;
+
+            path.push_back(candidates[i]);
+            target-=candidates[i];
+            get_ans(candidates,target,path,i+1,ans);
+            target+=candidates[i];
+            path.pop_back();
+        }
+    }
+};
+
+
