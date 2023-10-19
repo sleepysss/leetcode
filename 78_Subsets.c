@@ -53,3 +53,42 @@ int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
     *returnColumnSizes=return_arr;
     return store;
 }
+
+
+
+//C++ ver.
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+
+        vector<vector<int>> ans;
+        vector<int> path;
+        get_ans(nums,0,path,ans,0);
+        return ans;
+    }
+
+    void get_ans(vector<int>& nums,int index,vector<int>& path,vector<vector<int>>& ans,int count)
+    {
+        if(count==nums.size())
+        {
+            ans.push_back(path);
+            return;
+        }
+
+        for(int i=index;i<nums.size();++i)
+        {
+            //choose
+            path.push_back(nums[i]);
+            count++;
+            get_ans(nums,i+1,path,ans,count); 
+            count--;
+            path.pop_back();
+
+            //not choose
+            count++;
+            get_ans(nums,i+1,path,ans,count); 
+            count--;
+        }
+    }
+};
