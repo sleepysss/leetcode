@@ -120,3 +120,42 @@ int** combinationSum(int* candidates, int candidatesSize, int target, int* retur
     *returnColumnSizes=return_arr2;
     return store1;
 }
+
+
+
+//C++ ver
+
+class Solution {
+public:
+
+    void get_ans(vector<int>& candidates,int target,vector<int>& path,vector<vector<int>>& ans,int index)
+    {
+        if(target==0)
+        {
+            ans.push_back(path);
+            return;
+        }
+        else if(target<0)
+            return;
+            
+        for(int i=index;i<candidates.size();++i)
+        {
+            if(target>=candidates[i])
+            {
+                path.push_back(candidates[i]);
+                target-=candidates[i];
+                get_ans(candidates,target,path,ans,i);
+                target+=candidates[i];
+                path.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> path;
+        vector<vector<int>> ans;
+        int index=0;
+        get_ans(candidates,target,path,ans,index);
+        return ans;
+    }
+};
