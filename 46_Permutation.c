@@ -219,6 +219,39 @@ public:
 };
 
 
+//c++ ver.
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int> checked(nums.size(),0);
+        vector<vector<int>> ans;
+        vector<int> path;
+        get_ans(nums,ans,checked,path);
+        return ans;
+    }
+
+    void get_ans(vector<int> &nums,vector<vector<int>> &ans,vector<int> &checked,vector<int> &path)
+    {
+        if(path.size()==nums.size())
+        {
+            ans.push_back(path);
+            return;
+        }
+
+        for(int i=0;i<nums.size();++i)
+        {
+            if(!checked[i])
+            {
+                path.push_back(nums[i]);
+                checked[i] = 1;
+                get_ans(nums,ans,checked,path);
+                checked[i] = 0;
+                path.pop_back();
+            }
+        }
+    }
+};
 
 
 
