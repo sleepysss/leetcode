@@ -52,3 +52,33 @@ int** combine(int n, int k, int* returnSize, int** returnColumnSizes){
     
     return store; 
 }
+
+
+
+//c++ ver.
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> path;
+        get_ans(n,k,ans,path,1);
+        return ans;    
+    }
+
+    void get_ans(int n,int k,vector<vector<int>> &ans,vector<int> &path,int index)
+    {
+        if(!k)
+        {
+            ans.push_back(path);
+            return;
+        }
+
+        for(int i=index;i<=n;++i)
+        {
+            path.push_back(i);
+            get_ans(n,k-1,ans,path,i+1);
+            path.pop_back();
+        }
+    }
+};
