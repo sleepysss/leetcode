@@ -36,3 +36,49 @@ char ** binaryTreePaths(struct TreeNode* root, int* returnSize){
     *returnSize=where;
     return store2;
 }
+
+
+
+//c++ ver.
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> store;
+        string temp;
+        bTP(root,store,temp);
+        return store;    
+    }
+
+    void bTP(TreeNode* root,vector<string> &store,string temp)
+    {
+        if(!root->left&&!root->right) //到leaf了
+        {
+            temp+=to_string(root->val);
+            store.push_back(temp);
+        }
+        
+        //選擇清單就是這兩個if
+        if(root->left) //看看左子樹
+        {
+            //直接改在裡面就不用復原了
+            bTP(root->left,store,temp+to_string(root->val)+"->"); 
+        }
+        if(root->right) //看看右子樹
+        {
+            bTP(root->right,store,temp+to_string(root->val)+"->");
+        }
+    }
+};
