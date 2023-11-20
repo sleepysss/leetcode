@@ -236,3 +236,53 @@ int* searchRange(int* nums, int numsSize, int target, int* returnSize){
 
 
 
+/c++ ver
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+
+        vector<int> store;
+        if(!nums.size())
+        {
+            store.push_back(-1);
+            store.push_back(-1);
+            return store;
+        }
+
+        //first
+        int start=0,end=nums.size()-1;
+        while(start<=end)
+        {
+            int mid = start+(end-start)/2;
+            if(nums[mid]<target)
+                start = mid+1;
+            else
+                end = mid-1;
+        }
+        if(start<nums.size() && nums[start]==target)
+            store.push_back(start);
+        else
+        {
+            store.push_back(-1);
+            store.push_back(-1);
+            return store;
+        }
+
+        //second
+        start=0,end=nums.size()-1,target++;
+        while(start<=end)
+        {
+            int mid = start+(end-start)/2;
+            if(nums[mid]<target)
+                start = mid+1;
+            else
+                end = mid-1;
+        }
+        if(nums[start-1]==target-1)
+            store.push_back(start-1);
+
+        return store;
+    }
+};
+
