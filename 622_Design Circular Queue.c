@@ -1,3 +1,5 @@
+//arr
+
 typedef struct {
     int *store;
     int front,rear,size;
@@ -77,3 +79,113 @@ void myCircularQueueFree(MyCircularQueue* obj) {
  
  * myCircularQueueFree(obj);
 */
+
+
+
+
+
+
+
+//linked list
+
+typedef struct Node
+{
+    int val;
+    struct Node *next;
+} Node;
+
+typedef struct Q {
+    Node *front;
+    Node *back;
+    int size;
+    int count;
+} MyCircularQueue;
+
+
+// 1 -> 2 -> 3 -> NULL
+// front     back
+
+MyCircularQueue* myCircularQueueCreate(int k) {
+
+    MyCircularQueue *ptr=(MyCircularQueue *)malloc(sizeof(MyCircularQueue));
+    ptr->front=NULL;
+    ptr->back=NULL;
+    ptr->size=k;
+    ptr->count=0;
+    return ptr;
+}
+
+bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
+    
+    if(obj->count==obj->size) //full
+        return false;
+
+    Node *ptr=(Node *)malloc(sizeof(Node));
+    ptr->val=value;
+    ptr->next=NULL;
+
+    if(!obj->front) //empty
+    {
+        obj->front=ptr;
+        obj->back=ptr;
+        obj->count=obj->count+1; //等同obj->count++
+    }
+    else
+    {
+        obj->back->next=ptr;
+        obj->back=ptr;
+        obj->count=obj->count+1;
+    }
+    return true;   
+}
+
+bool myCircularQueueDeQueue(MyCircularQueue* obj) {
+
+    if(obj->count==0) //empty
+        return false;
+
+    Node *ptr=obj->front;
+    if(obj->front==obj->back) //剩一個
+        obj->back=NULL;
+    obj->front=obj->front->next;
+    obj->count--;
+
+    return true;
+}
+
+int myCircularQueueFront(MyCircularQueue* obj) {
+    
+    return obj->front?obj->front->val:-1;
+}
+
+int myCircularQueueRear(MyCircularQueue* obj) {
+
+    return obj->back?obj->back->val:-1;
+}
+
+bool myCircularQueueIsEmpty(MyCircularQueue* obj) {
+
+    if(!obj->count)
+        return true;
+    else
+        return false;
+    
+}
+
+bool myCircularQueueIsFull(MyCircularQueue* obj) {
+
+    if(obj->count==obj->size)
+        return true;
+    else
+        return false;
+}
+
+void myCircularQueueFree(MyCircularQueue* obj) {
+
+    while(obj->front)
+        myCircularQueueDeQueue(obj);
+    free(obj);
+}
+
+
+
