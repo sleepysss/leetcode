@@ -1,3 +1,4 @@
+//method 1
 struct ListNode* partition(struct ListNode* head, int x){
     
     if(!head||!(head->next))
@@ -24,4 +25,33 @@ struct ListNode* partition(struct ListNode* head, int x){
     pre->next=dummy2.next;
     return dummy1.next;
     
+}
+
+
+//method 2
+
+struct ListNode* partition(struct ListNode* head, int x) {
+
+    struct ListNode dummy;
+    dummy.next=head;
+
+    struct ListNode *ptr=&dummy;
+    struct ListNode dummy2, *ptr2;
+    dummy2.next=NULL;
+    ptr2=&dummy2;
+
+    while(ptr->next)
+    {
+        if(ptr->next->val>=x)
+        {
+            ptr2->next=ptr->next;
+            ptr->next=ptr->next->next; //注意順序
+            ptr2=ptr2->next;
+            ptr2->next=NULL;
+            continue;
+        }
+        ptr=ptr->next;
+    }
+    ptr->next=dummy2.next;
+    return dummy.next;   
 }
