@@ -1,3 +1,5 @@
+// c ver recursive
+
 struct TreeNode* searchBST(struct TreeNode* root, int val){
     
     if(!root)
@@ -16,7 +18,7 @@ struct TreeNode* searchBST(struct TreeNode* root, int val){
 
 
 
-//c++ ver
+//c++ ver recursive
 
 /**
  * Definition for a binary tree node.
@@ -42,3 +44,22 @@ public:
             return root;
     }
 };
+
+//c ver iterative
+
+struct TreeNode* searchBST(struct TreeNode* root, int val) {
+
+    while(root)
+    {
+        if(root->val>val)
+            root=root->left;
+        else if(root->val<val)
+            root=root->right;
+        else
+            return root;
+    }
+    return NULL;
+}
+
+
+
