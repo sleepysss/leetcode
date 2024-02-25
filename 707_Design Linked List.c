@@ -1,3 +1,5 @@
+//singly linked list
+
 typedef struct Node
 {
     int val;
