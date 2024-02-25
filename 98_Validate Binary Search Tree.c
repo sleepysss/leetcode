@@ -159,3 +159,28 @@ public:
     }
 };
 
+
+
+//recursive
+
+bool intherange(struct TreeNode *root,long min,long max) //tree的值是否都在某範圍(min,max)內(左右皆不含)
+{
+    if(!root)
+        return true;
+    
+    if(root->val<=min||root->val>=max) //root不符合
+        return false;
+    else
+        return intherange(root->left,min,root->val)&&intherange(root->right,root->val,max);
+
+}
+
+bool isValidBST(struct TreeNode* root) {
+
+    //想法:看看左右子樹的值是否在正確的範圍內
+
+    if(!root)
+        return true;
+    else
+        return intherange(root->left,LONG_MIN,root->val)&&intherange(root->right,root->val,LONG_MAX);
+}
