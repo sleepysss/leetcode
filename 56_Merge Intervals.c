@@ -90,3 +90,102 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
     
     return store1;
 }
+
+
+
+
+//method 2
+
+
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+
+int cmp(const void *a, const void *b)
+{
+    const int *arr1 = *(const int **)a;
+    const int *arr2 = *(const int **)b;
+
+    if(arr1[0]!=arr2[0])
+        return arr1[0]-arr2[0];
+    else
+        return arr1[1]-arr2[1];
+}
+
+
+
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {
+    
+    //intervals = [[1,3],[2,6],[8,10],[15,18]]
+    //intervalsSize: interval的長度 4
+    //intervalsColSize: interval中每個col的長度 2 2 2 2
+    //int * returnSize之所以是*,因為main裡面有一個int *returnSize
+    //int** returnColumnSizes 之所以是**,因為我們要修改他main function中的 int *returnColumnSize指的address
+    //且 returnColumnSize是每個col的大小,如同上面的intervalsColSize
+    //也可*returnColumnSizes = (int *)malloc(sizeof(int) * index);
+    //然後(*returnColumnSizes)[i] = 2
+
+
+    int temp[10000][2];
+
+    //array = {(int *), (int *), (int *), ... , (int *) } 所以要sizeof(int *)
+    //我猜qsort的內部做法應該是直接swap int*存的address,而不會管到每一個col內的元素
+    //可能只適用於malloc的(?)靜態應該不能這樣弄???
+    qsort(intervals,intervalsSize,sizeof(int *),cmp); 
+
+    int start_index=intervals[0][0],end_index=intervals[0][1]; //記目前的區間
+
+    *returnSize=0;
+    for(int i=1;i<intervalsSize;++i)
+    {
+        if(intervals[i][0]<=end_index) //overlap
+            end_index=(intervals[i][1]>end_index)?intervals[i][1]:end_index;
+        else
+        {
+            //舊的存起來
+            temp[*returnSize][0]=start_index;
+            temp[*returnSize][1]=end_index;
+            (*returnSize)++; //記得要括號
+            //開始一個新的
+            start_index=intervals[i][0];
+            end_index=intervals[i][1];
+        }
+    }
+    //加入目前的區間
+    temp[*returnSize][0]=start_index;
+    temp[*returnSize][1]=end_index;
+    (*returnSize)++;
+
+
+    int *ptr=(int *)malloc(sizeof(int)*(*returnSize));
+    int **store=(int **)malloc(sizeof(int *)*(*returnSize));
+    
+
+    for(int i=0;i<(*returnSize);++i)
+    {
+        store[i]=(int *)malloc(sizeof(int)*2);
+        store[i][0]=temp[i][0];
+        store[i][1]=temp[i][1];
+        ptr[i]=2;
+    }
+    
+    *returnColumnSizes=ptr;
+
+    return store;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
