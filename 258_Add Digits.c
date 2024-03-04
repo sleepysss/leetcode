@@ -20,6 +20,25 @@ int addDigits(int num) {
     return num;
 }
 
+也可以
+
+int addDigits(int num) {
+
+    while(num/10)
+    {
+        
+        int sum=0;
+        while(num)
+        {
+            sum=sum+num%10;
+            num/=10;
+        }
+        num=sum;    
+    }
+    
+    return num;
+}
+
 //法2 recursive
 
 int addDigits(int num) {
